@@ -29,5 +29,18 @@ namespace quien_es_quien.Models {
         public void Disconnect() {
             sql.Close();
         }
+
+        public void AddBitcoins(User u, int bitcoins) {
+            SqlConnection connection = Connect();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_AddBitcoin";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("", "");
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            if(dataReader.Read()) {
+
+            }
+        }
     }
 }
