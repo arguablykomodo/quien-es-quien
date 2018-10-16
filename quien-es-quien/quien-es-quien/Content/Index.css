@@ -1,0 +1,72 @@
+﻿body {
+  color: #01cdfe;
+  perspective: 50rem;
+  overflow: hidden;
+  background: url(bg.jpg);
+  background-size: 100%;
+}
+
+iframe {
+  display: none;
+}
+
+@keyframes wiggle {
+  from {
+    transform: rotateY(0) rotateX(0);
+  }
+  50% {
+    transform: rotateY(0.5turn) rotateX(15deg);
+  }
+  to {
+    transform: rotateY(1turn) rotateX(0);
+  }
+}
+
+.logo {
+  width: 100vw;
+  height: 50vh;
+}
+
+.logo div {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: wiggle 2s infinite linear;
+}
+
+h1 {
+  font-size: 15rem;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  color: #91e9ff;
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@keyframes wiggle2 {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+.links a {
+  color: #01cdfe;
+  text-decoration: none;
+  text-align: center;
+  font-size: 2em;
+  text-shadow: 1px 1px #ff71ce, 2px 2px #ff71ce, 3px 3px #ff71ce,
+    4px 4px #ff71ce, 5px 5px #ff71ce;
+  animation: wiggle2 1s infinite alternate ease-in-out;
+}
