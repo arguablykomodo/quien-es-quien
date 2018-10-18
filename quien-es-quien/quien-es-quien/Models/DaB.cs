@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using quien_es_quien.Models;
 
 /*
  10.128.8.16
@@ -30,16 +31,62 @@ namespace quien_es_quien.Models {
             sql.Close();
         }
 
-        public void AddBitcoins(User u, int bitcoins) {
+        public void UpdateBitcoins(User u, long bitcoins) {
+            if(u.Bitcoins - bitcoins < bitcoins && bitcoins < 0)
+            {
+                bitcoins = u.Bitcoins;
+            }
+
             SqlConnection connection = Connect();
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "sp_AddBitcoin";
+            command.CommandText = "sp_UpdateBitcoins";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("", "");
-            SqlDataReader dataReader = command.ExecuteReader();
+            command.Parameters.AddWithValue("username", u.Username);
+            command.Parameters.AddWithValue("bitcoins", bitcoins);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message);
+            }
 
-            if(dataReader.Read()) {
+            u.Bitcoins = u.Bitcoins + bitcoins;
+        }
 
+        public User LoginUser(string username, string password)
+        {
+            password = Utils.CreateMD5(password);
+
+            SqlConnection connection = Connect();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_Login";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("username", username);
+            command.Parameters.AddWithValue("password", password);
+
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    int code = Convert.ToInt32(reader["code"]);
+                    if(code == 1)
+                    {
+                        String uname = reader["username"].ToString();
+                        long bitcoins = Convert.ToInt64(reader["bitcoins"]);
+                        int bestscore = Convert.ToInt32(reader["bestscore"]);
+                        return new User(bitcoins, uname, 0, bestscore);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message);
+                return null;
             }
         }
     }

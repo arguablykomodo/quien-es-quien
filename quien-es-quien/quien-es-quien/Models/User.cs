@@ -21,5 +21,16 @@ namespace quien_es_quien.Models {
         public string Username { get => _username; }
         public int Score { get => _score; set => _score = value; }
         public int Bestscore { get => _bestscore; set => _bestscore = value; }
+
+        public void UpdateBitcoins(long bitcoins)
+        {
+            if (this.Bitcoins - bitcoins < 0 && this.Bitcoins < 0)
+            {
+                this.Bitcoins = 0;
+            }
+            DaB db = new DaB();
+            db.UpdateBitcoins(this, bitcoins);
+            db.Disconnect();
+        }
     }
 }
