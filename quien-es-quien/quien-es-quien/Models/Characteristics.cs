@@ -10,12 +10,14 @@ namespace quien_es_quien.Models {
 
         static public List<Characteristics> ListCharacteristics() {
             List<Characteristics> characteristics_list = new List<Characteristics>();
-            string[] names = new string[] { "Skin-color", "Eye-color" };
-            for(int i = 0; i < names.Length; i++) {
-                Models.Characteristics c = new Characteristics();
-                c.id = i;
-                c.name = names[i];
-                characteristics_list.Add(c);
+            if(!DaB.use_connection) {
+                string[] names = new string[] { "Skin-color", "Eye-color" };
+                for(int i = 0; i < names.Length; i++) {
+                    Models.Characteristics c = new Characteristics();
+                    c.id = i;
+                    c.name = names[i];
+                    characteristics_list.Add(c);
+                }
             }
             return characteristics_list;
         }
