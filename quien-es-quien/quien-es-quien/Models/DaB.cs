@@ -15,7 +15,11 @@ namespace quien_es_quien.Models {
         public static string connectionString = @"Server=10.128.8.16;User id=QEQC01;Password=QEQC01;Database=QEQC01;Trusted_Connection=true";
         public SqlConnection sql;
         public DaB() {
-            Connect();
+            try {
+                Connect();
+            } catch {
+
+            }
         }
         ~DaB() {
             Disconnect();
@@ -80,17 +84,6 @@ namespace quien_es_quien.Models {
             }
         }
 
-        //As we can't access the DaB we will have to use this override to actually return anything and test the rest of the code
-        public List<Characteristics> ListCharacteristics() {
-            List<Characteristics> characteristics_list = new List<Characteristics>();
-            string[] names = new string[] { "Skin-color", "Eye-color" };
-            for(int i = 0; i < 4; i++) {
-                Models.Characteristics c;
-                c.id = i;
-                c.name = names[i];
-                characteristics_list.Add(c);
-            }
-            return characteristics_list;
-        }
+        
     }
 }

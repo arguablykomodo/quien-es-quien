@@ -13,7 +13,7 @@ namespace quien_es_quien.Controllers {
 
         public ActionResult ListCharacteristics() {
             Models.DaB daB = new Models.DaB();
-            var characteristics = daB.ListCharacteristics();
+            var characteristics = Models.Characteristics.ListCharacteristics();
             ViewBag.characteristisc = characteristics;
 
             return View();
