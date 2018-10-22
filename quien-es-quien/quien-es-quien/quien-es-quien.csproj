@@ -117,6 +117,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Characteristics.cs" />
     <Compile Include="Models\DaB.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Utils.cs" />
@@ -131,7 +132,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Characteristics\Index.cshtml" />
+    <Content Include="Views\Admin\ListCharacteristics.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
