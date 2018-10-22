@@ -8,7 +8,7 @@ namespace quien_es_quien.Controllers {
         }
 
         public ActionResult Characters() {
-
+            return View();
         }
     }
 }
