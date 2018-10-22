@@ -1,0 +1,56 @@
+﻿body {
+    height: 100vh;
+    background: url(bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+header {
+    height: 50vh;
+}
+
+    header > * {
+        width: 100vw;
+        height: 50vh;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+@keyframes rainbow {
+    from {
+        filter: hue-rotate(0);
+    }
+
+    to {
+        filter: hue-rotate(1turn);
+    }
+}
+
+img {
+    height: 50vh;
+    animation: rainbow 1s infinite linear;
+}
+
+h1 {
+    animation: rainbow 1s infinite linear;
+    color: #01cdfe;
+    text-shadow: 1px 1px #ff71ce, 2px 2px #ff71ce, 3px 3px #ff71ce, 4px 4px #ff71ce, 5px 5px #ff71ce;
+}
+
+nav {
+    display: flex;
+    height: 40vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+    nav a {
+        font-size: 2em;
+        color: #01cdfe;
+        text-shadow: 1px 1px #ff71ce, 2px 2px #ff71ce, 3px 3px #ff71ce, 4px 4px #ff71ce, 5px 5px #ff71ce;
+        text-decoration: wavy underline #01cdfe;
+        padding: 0.5em;
+    }
