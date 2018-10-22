@@ -20,7 +20,7 @@ namespace quien_es_quien.Models {
         ~DaB() {
             Disconnect();
         }
-
+        
         private SqlConnection Connect() {
             sql = new SqlConnection(connectionString);
             sql.Open();
