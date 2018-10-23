@@ -17,7 +17,7 @@ namespace quien_es_quien.Controllers {
 
             if (new_characteristic!=null)
             {
-                daB.CreateCharacteristic(new_characteristic);
+                //daB.CreateCharacteristic(new_characteristic);
             }
 
             var characteristics = Models.Characteristics.ListCharacteristics();
