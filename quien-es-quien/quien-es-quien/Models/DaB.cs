@@ -105,13 +105,16 @@ namespace quien_es_quien.Models {
             command.Parameters.AddWithValue("name", s);
             try
             {
-                command.ExecuteQuery();
-                return Convert.ToBoolean(reader["code"]);
+                SqlDataReader reader = command.ExecuteReader();
+                Models.Characteristics c = new Characteristics();
+                c.id = Convert.ToInt32(reader["ID"]);
+                c.name = reader["characteristic_name"].toString();
+                return c;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nCharacteristic already exits?");
-                return 0;
+                return null;
             }
         }
     }
