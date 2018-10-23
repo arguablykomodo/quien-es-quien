@@ -49,11 +49,11 @@ namespace quien_es_quien.Models {
             command.Parameters.AddWithValue("username", u.Username);
             command.Parameters.AddWithValue("bitcoins", bitcoins);
             try {
-                command.ExecuteQuery();
+                SqlDataReader reader = command.ExecuteReader();
                 return Convert.ToBoolean(reader["code"]);
             } catch(Exception ex) {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
-                return 0;
+                return false;
             }
 
             u.Bitcoins = u.Bitcoins + bitcoins;
@@ -108,7 +108,7 @@ namespace quien_es_quien.Models {
                 SqlDataReader reader = command.ExecuteReader();
                 Models.Characteristics c = new Characteristics();
                 c.id = Convert.ToInt32(reader["ID"]);
-                c.name = reader["characteristic_name"].toString();
+                c.name = reader["characteristic_name"].ToString();
                 return c;
             }
             catch (Exception ex)
