@@ -12,7 +12,7 @@ using System.Web;
 
 namespace quien_es_quien.Models {
     public class DaB {
-        public static string connectionString = @"Server=10.128.8.16;User id=QEQC01;Password=QEQC01;Database=QEQC01;Trusted_Connection=true";
+        public static string connectionString = "Server=10.128.8.16;User id=QEQC01;Password=QEQC01;Database=QEQC01;Trusted_Connection=true";
         public SqlConnection sql;
         public static bool use_connection = true;
         public DaB() {
@@ -42,6 +42,8 @@ namespace quien_es_quien.Models {
                 bitcoins = u.Bitcoins;
             }
 
+            u.Bitcoins = u.Bitcoins + bitcoins;
+
             SqlConnection connection = Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_UpdateBitcoins";
@@ -56,8 +58,6 @@ namespace quien_es_quien.Models {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
                 return false;
             }
-
-            u.Bitcoins = u.Bitcoins + bitcoins;
         }
 
         public User LoginUser(string username, string password) {
@@ -99,9 +99,8 @@ namespace quien_es_quien.Models {
             }
         }
 
-        static public Characteristics CreateCharacteristic(String s) {
-            DaB daB = new DaB();
-            SqlConnection connection = daB.Connect();
+        public Characteristics CreateCharacteristic(String s) {
+            SqlConnection connection = Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_CreateCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;

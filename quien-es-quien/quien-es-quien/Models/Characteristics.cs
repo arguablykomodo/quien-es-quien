@@ -16,6 +16,7 @@ namespace quien_es_quien.Models {
 
         static public List<Characteristics> ListCharacteristics() {
             List<Characteristics> characteristics_list = new List<Characteristics>();
+            
             if (DaB.use_connection)  {
                 SqlConnection c = new DaB().Connect();
                 SqlCommand command = c.CreateCommand();
