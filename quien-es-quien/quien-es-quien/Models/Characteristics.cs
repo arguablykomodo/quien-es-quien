@@ -16,18 +16,8 @@ namespace quien_es_quien.Models {
 
         static public List<Characteristics> ListCharacteristics() {
             List<Characteristics> characteristics_list = new List<Characteristics>();
-<<<<<<< HEAD
-            if (false) {
-                string[] names = new string[] { "Skin-color", "Eye-color" };
-                for (int i = 0; i < names.Length; i++) {
-                    Models.Characteristics c = new Characteristics(names[i], i);
-                    characteristics_list.Add(c);
-                }
-            }
-            else {
-=======
+            
             if (DaB.use_connection)  {
->>>>>>> 4b1e3abbd1ffce31a8c3554201333408ac94b61a
                 SqlConnection c = new DaB().Connect();
                 SqlCommand command = c.CreateCommand();
                 command.CommandText = "sp_GetCharacteristics";
