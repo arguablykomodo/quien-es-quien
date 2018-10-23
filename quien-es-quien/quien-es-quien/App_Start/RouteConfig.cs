@@ -1,7 +1,4 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
-
-namespace quien_es_quien {
+﻿namespace quien_es_quien {
     public class RouteConfig {
         public static void RegisterRoutes(RouteCollection routes) {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
