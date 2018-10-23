@@ -16,6 +16,7 @@ namespace quien_es_quien.Models {
 
         static public List<Characteristics> ListCharacteristics() {
             List<Characteristics> characteristics_list = new List<Characteristics>();
+<<<<<<< HEAD
             if (false) {
                 string[] names = new string[] { "Skin-color", "Eye-color" };
                 for (int i = 0; i < names.Length; i++) {
@@ -24,6 +25,9 @@ namespace quien_es_quien.Models {
                 }
             }
             else {
+=======
+            if (DaB.use_connection)  {
+>>>>>>> 4b1e3abbd1ffce31a8c3554201333408ac94b61a
                 SqlConnection c = new DaB().Connect();
                 SqlCommand command = c.CreateCommand();
                 command.CommandText = "sp_GetCharacteristics";
@@ -33,10 +37,16 @@ namespace quien_es_quien.Models {
                 while (reader.NextResult()) {
                     characteristics_list.Add(new Characteristics(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"])));
                 }
+            } else {
+                string[] names = new string[] { "Skin-color", "Eye-color" };
+                for (int i = 0; i < names.Length; i++)
+                {
+                    Models.Characteristics c = new Characteristics(names[i], i);
+                    characteristics_list.Add(c);
+                }
             }
             return characteristics_list;
         }
     }
-    //As we can't access the DaB we will have to use this override to actually return anything and test the rest of the code
 
 }
