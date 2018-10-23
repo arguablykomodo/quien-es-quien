@@ -129,9 +129,7 @@ namespace quien_es_quien.Models
             try
             {
                 SqlDataReader reader = command.ExecuteReader();
-                Models.Characteristics c = new Characteristics();
-                c.id = Convert.ToInt32(reader["ID"]);
-                c.name = reader["characteristic_name"].ToString();
+                Models.Characteristics c = new Characteristics(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"]));
                 return c;
             }
             catch (Exception ex)
