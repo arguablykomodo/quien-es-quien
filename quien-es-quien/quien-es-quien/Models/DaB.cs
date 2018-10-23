@@ -12,7 +12,7 @@ using System.Web;
 
 namespace quien_es_quien.Models {
     public class DaB {
-        public static string connectionString = @"Server=10.128.8.16;User id=QEQC01;Password=QEQC01;Database=QEQC01;Trusted_Connection=true";
+        public static string connectionString = "Server=10.128.8.16;User id=QEQC01;Password=QEQC01;Database=QEQC01;Trusted_Connection=true";
         public SqlConnection sql;
         public static bool use_connection = true;
         public DaB() {
