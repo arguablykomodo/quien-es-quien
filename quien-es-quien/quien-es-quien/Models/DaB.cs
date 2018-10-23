@@ -19,7 +19,9 @@ namespace quien_es_quien.Models {
             try {
                 Connect();
             }
-            catch {
+            catch(Exception e) {
+                System.Diagnostics.Debug.Print(String.Format("Failed connection: {} ({})", e.Message, e.Source));
+                
                 use_connection = false;
             }
         }

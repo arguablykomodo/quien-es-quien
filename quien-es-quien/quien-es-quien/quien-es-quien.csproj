@@ -107,6 +107,7 @@
     <None Include="Content\Admin_Index.less" />
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\helios.png" />
+    <Content Include="Content\helios.obj" />
     <None Include="Content\Index.less" />
     <None Include="Content\Site.less" />
     <Content Include="Global.asax" />
