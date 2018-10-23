@@ -37,7 +37,7 @@ namespace quien_es_quien.Models {
                 sql.Close();
         }
 
-        public void UpdateBitcoins(User u, long bitcoins) {
+        public bool UpdateBitcoins(User u, long bitcoins) {
             if(u.Bitcoins - bitcoins < bitcoins && bitcoins < 0) {
                 bitcoins = u.Bitcoins;
             }
@@ -49,9 +49,11 @@ namespace quien_es_quien.Models {
             command.Parameters.AddWithValue("username", u.Username);
             command.Parameters.AddWithValue("bitcoins", bitcoins);
             try {
-                command.ExecuteNonQuery();
+                command.ExecuteQuery();
+                return Convert.ToBoolean(reader["code"]);
             } catch(Exception ex) {
-                Console.WriteLine("Caught exception: " + ex.Message);
+                Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
+                return 0;
             }
 
             u.Bitcoins = u.Bitcoins + bitcoins;
@@ -59,7 +61,7 @@ namespace quien_es_quien.Models {
 
         public User LoginUser(string username, string password) {
             if (!use_connection) {
-                if(username=="Comunism"&&password=="DidntFail") {
+                if(username=="Comunism" && password=="DidntFail") {
                     return new User(10, username, 10, 10);
                 } else {
                     return null;
@@ -89,11 +91,28 @@ namespace quien_es_quien.Models {
                 }
                 return null;
             } catch(Exception ex) {
-                Console.WriteLine("Caught exception: " + ex.Message);
+                Console.WriteLine("Caught exception: " + ex.Message + "\nWrong credentials?");
                 return null;
             }
         }
 
-        
+        public Characteristics CreateCharacteristic(String s)
+        {
+            SqlConnection connection = Connect();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_CreateCharacteristic";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("name", s);
+            try
+            {
+                command.ExecuteQuery();
+                return Convert.ToBoolean(reader["code"]);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nCharacteristic already exits?");
+                return 0;
+            }
+        }
     }
 }
