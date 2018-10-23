@@ -11,7 +11,7 @@ namespace quien_es_quien.Controllers {
             return View();
         }
 
-        public ActionResult ListCharacteristics() {
+        public ActionResult ListCharacteristics(string new_characteristics = null) {
             Models.DaB daB = new Models.DaB();
             var characteristics = Models.Characteristics.ListCharacteristics();
             ViewBag.characteristisc = characteristics;

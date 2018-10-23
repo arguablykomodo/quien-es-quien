@@ -18,6 +18,9 @@ namespace quien_es_quien.Models {
                     c.name = names[i];
                     characteristics_list.Add(c);
                 }
+            } else
+            {
+                
             }
             return characteristics_list;
         }
