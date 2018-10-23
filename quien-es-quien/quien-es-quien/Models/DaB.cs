@@ -10,35 +10,46 @@ using quien_es_quien.Models;
  QEQC01
      */
 
-namespace quien_es_quien.Models {
-    public class DaB {
+namespace quien_es_quien.Models
+{
+    public class DaB
+    {
         public static string connectionString = @"Server=10.128.8.16;User id=QEQC01;Password=QEQC01;Database=QEQC01;Trusted_Connection=true";
         public SqlConnection sql;
         public static bool use_connection = true;
-        public DaB() {
-            try {
+        public DaB()
+        {
+            try
+            {
                 Connect();
-            } catch {
+            }
+            catch
+            {
                 use_connection = false;
             }
         }
-        ~DaB() {
+        ~DaB()
+        {
             Disconnect();
         }
 
-        private SqlConnection Connect() {
+        private SqlConnection Connect()
+        {
             sql = new SqlConnection(connectionString);
             sql.Open();
             return sql;
         }
 
-        public void Disconnect() {
-            if(use_connection)
+        public void Disconnect()
+        {
+            if (use_connection)
                 sql.Close();
         }
 
-        public bool UpdateBitcoins(User u, long bitcoins) {
-            if(u.Bitcoins - bitcoins < bitcoins && bitcoins < 0) {
+        public bool UpdateBitcoins(User u, long bitcoins)
+        {
+            if (u.Bitcoins - bitcoins < bitcoins && bitcoins < 0)
+            {
                 bitcoins = u.Bitcoins;
             }
 
@@ -48,10 +59,13 @@ namespace quien_es_quien.Models {
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.Parameters.AddWithValue("username", u.Username);
             command.Parameters.AddWithValue("bitcoins", bitcoins);
-            try {
+            try
+            {
                 SqlDataReader reader = command.ExecuteReader();
                 return Convert.ToBoolean(reader["code"]);
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
                 return false;
             }
@@ -59,11 +73,16 @@ namespace quien_es_quien.Models {
             u.Bitcoins = u.Bitcoins + bitcoins;
         }
 
-        public User LoginUser(string username, string password) {
-            if (!use_connection) {
-                if(username=="Comunism" && password=="DidntFail") {
+        public User LoginUser(string username, string password)
+        {
+            if (!use_connection)
+            {
+                if (username == "Comunism" && password == "DidntFail")
+                {
                     return new User(10, username, 10, 10);
-                } else {
+                }
+                else
+                {
                     return null;
                 }
             }
@@ -77,12 +96,15 @@ namespace quien_es_quien.Models {
             command.Parameters.AddWithValue("username", username);
             command.Parameters.AddWithValue("password", password);
 
-            try {
+            try
+            {
                 SqlDataReader reader = command.ExecuteReader();
 
-                if(reader.Read()) {
+                if (reader.Read())
+                {
                     int code = Convert.ToInt32(reader["code"]);
-                    if(code == 1) {
+                    if (code == 1)
+                    {
                         String uname = reader["username"].ToString();
                         long bitcoins = Convert.ToInt64(reader["bitcoins"]);
                         int bestscore = Convert.ToInt32(reader["bestscore"]);
@@ -90,7 +112,9 @@ namespace quien_es_quien.Models {
                     }
                 }
                 return null;
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nWrong credentials?");
                 return null;
             }
