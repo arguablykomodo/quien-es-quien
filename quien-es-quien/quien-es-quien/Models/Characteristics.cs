@@ -16,7 +16,16 @@ namespace quien_es_quien.Models {
 
         static public List<Characteristics> ListCharacteristics() {
             List<Characteristics> characteristics_list = new List<Characteristics>();
-
+<<<<<<< HEAD
+            if (false) {
+                string[] names = new string[] { "Skin-color", "Eye-color" };
+                for (int i = 0; i < names.Length; i++) {
+                    Models.Characteristics c = new Characteristics(names[i], i);
+                    characteristics_list.Add(c);
+                }
+            }
+            else {
+=======
             if (DaB.use_connection)  {
                 SqlConnection c = new DaB().Connect();
                 SqlCommand command = c.CreateCommand();
