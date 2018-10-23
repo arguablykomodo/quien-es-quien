@@ -104,11 +104,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Admin_Index.css" />
+    <None Include="Content\Admin_Index.less" />
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\helios.png" />
-    <Content Include="Content\Index.css" />
-    <Content Include="Content\Site.css" />
+    <None Include="Content\Index.less" />
+    <None Include="Content\Site.less" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
