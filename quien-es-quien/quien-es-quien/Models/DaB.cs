@@ -32,8 +32,7 @@ namespace quien_es_quien.Models
         {
             Disconnect();
         }
-
-        private SqlConnection Connect()
+        public SqlConnection Connect()
         {
             sql = new SqlConnection(connectionString);
             sql.Open();
