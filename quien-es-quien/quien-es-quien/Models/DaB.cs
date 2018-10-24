@@ -20,7 +20,7 @@ namespace quien_es_quien.Models {
                 Connect();
             }
             catch(Exception e) {
-                System.Diagnostics.Debug.Print(String.Format("Failed connection: {} ({})", e.Message, e.Source));
+                System.Diagnostics.Debug.Print("Failed connection: "+e.Message+" ("+e.Source+")");
                 
                 use_connection = false;
             }
@@ -101,7 +101,7 @@ namespace quien_es_quien.Models {
             }
         }
 
-        public Characteristics CreateCharacteristic(String s) {
+        public Characteristic CreateCharacteristic(String s) {
             SqlConnection connection = Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_CreateCharacteristic";
@@ -109,7 +109,7 @@ namespace quien_es_quien.Models {
             command.Parameters.AddWithValue("name", s);
             try {
                 SqlDataReader reader = command.ExecuteReader();
-                Models.Characteristics c = new Characteristics(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"]));
+                Models.Characteristic c = new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"]));
                 return c;
             }
             catch (Exception ex) {

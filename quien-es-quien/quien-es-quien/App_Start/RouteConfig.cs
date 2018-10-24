@@ -11,8 +11,13 @@ namespace quien_es_quien {
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Admin",
+                url: "Config/{action}/{id}",
+                defaults: new { controller = "Config", action = "Index", id = UrlParameter.Optional }
+            );
 
-            
+
         }
     }
 }
