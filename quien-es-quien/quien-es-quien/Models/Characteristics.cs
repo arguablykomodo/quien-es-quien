@@ -51,7 +51,7 @@ namespace quien_es_quien.Models {
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_CreateCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("name", s);
+            command.Parameters.AddWithValue("@name", s);
             try
             {
                 SqlDataReader reader = command.ExecuteReader();
@@ -71,8 +71,8 @@ namespace quien_es_quien.Models {
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_EditCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("id", id);
-            command.Parameters.AddWithValue("newname", newName);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@newname", newName);
             try
             {
                 command.ExecuteNonQuery();
@@ -89,7 +89,7 @@ namespace quien_es_quien.Models {
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_DeleteCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("id", id);
+            command.Parameters.AddWithValue("@id", id);
             try
             {
                 command.ExecuteNonQuery();
@@ -99,6 +99,31 @@ namespace quien_es_quien.Models {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nInvalid id?");
             }
         }
-    }
 
+        public static Dictionary<Characteristic, string> GetCharacterCharacteristics(int id)
+        {
+            Dictionary<Characteristic, string> characteristics = new Dictionary<Characteristic, string>();
+
+            SqlConnection c = new DaB().Connect();
+            SqlCommand command = c.CreateCommand();
+            command.CommandText = "sp_GetCharacterCharacteristics";
+            command.Parameters.AddWithValue("@id", id);
+
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    characteristics.Add(new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"])), reader["value"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nInvalid character id?");
+            }
+
+            return characteristics;
+        }
+    }
 }
