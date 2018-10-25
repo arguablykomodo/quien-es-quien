@@ -29,9 +29,10 @@ namespace quien_es_quien.Models {
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.NextResult()) {
+                while (reader.Read()) {
                     characteristics_list.Add(new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"])));
                 }
+
             } else {
                 string[] names = new string[] { "Skin-color", "Eye-color" };
                 for (int i = 0; i < names.Length; i++)
