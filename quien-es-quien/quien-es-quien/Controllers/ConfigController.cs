@@ -26,7 +26,7 @@ namespace quien_es_quien.Controllers
             return View();
         }
 
-        public ActionResult EditCharacteristic(int _id = -1, string name = "", string _action = "se recibió null, cortate la chota")
+        public ActionResult EditCharacteristic(int _id = -1, string name = "", string _action = "")
         {
             switch(_action) {
                 case "create":
@@ -48,11 +48,9 @@ namespace quien_es_quien.Controllers
                     return RedirectToAction("ListCharacteristics");
                 case "delete":
                     Models.Characteristic.DeleteCharacteristic(_id);
-                    System.Diagnostics.Debug.WriteLine("Removed dick");
                     return RedirectToAction("ListCharacteristics");
             }
-            System.Diagnostics.Debug.WriteLine("Sorete y la reconcha de tu madre la re puta que te pario");
-            throw new System.Exception("La concha de tu madre all boys (si se recibió null me corto la chota: " + _action+" )");
+            throw new System.Exception("Invalid action \""+_action+"\"");
         }
     }
 }

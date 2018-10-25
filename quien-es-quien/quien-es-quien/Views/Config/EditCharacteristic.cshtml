@@ -8,6 +8,8 @@
 
 <h2>EditCharacteristic</h2>
 
-<form action="/Config/EditCharacteristic?_id=@c.id&name=@c.name&_action=post">
-    <input type="text" value="@c.name" />
+<form action="/Config/EditCharacteristic">
+    <input type="text" value="@c.name" name="name"/>
+    <input type="hidden" value="@c.id" name="_id"/>
+    <input type="hidden" value="post" name="_action" />
 </form>

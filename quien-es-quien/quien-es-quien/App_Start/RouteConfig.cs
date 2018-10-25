@@ -11,7 +11,7 @@ namespace quien_es_quien {
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index" ,id="asd" }
             );
-
+            
         }
     }
 }
