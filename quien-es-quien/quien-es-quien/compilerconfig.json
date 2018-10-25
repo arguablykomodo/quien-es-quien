@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/ListCharacteristics.css",
+    "inputFile": "Content/ListCharacteristics.scss"
+  },
+  {
+    "outputFile": "Content/Index.css",
+    "inputFile": "Content/Index.scss"
+  },
+  {
+    "outputFile": "Content/Admin_Index.css",
+    "inputFile": "Content/Admin_Index.scss"
+  }
+]
