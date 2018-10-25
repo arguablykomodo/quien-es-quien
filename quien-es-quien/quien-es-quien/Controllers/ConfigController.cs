@@ -26,17 +26,31 @@ namespace quien_es_quien.Controllers
             return View();
         }
 
-        public ActionResult EditCharacteristic(string name = "", int id = -1, string action = "")
+        public ActionResult EditCharacteristic(int id = -1, string name = "", string action = "")
         {
             switch (action)
             {
                 case "create":
                     ViewBag.action = action;
                     return View();
-                case "post":
-                    break;
                 case "edit":
-                    break;
+                    ViewBag.action = action;
+                    ViewBag.name = name;
+                    ViewBag.id = id;
+                    return View();
+                case "post":
+                    if (id == -1)
+                    {
+                        Models.Characteristic.CreateCharacteristic(name);
+                    }
+                    else
+                    {
+                        Models.Characteristic.EditCharacteristic(id, name);
+                    }
+                    return View("ListCharacteristics");
+                case "delete":
+                    Models.Characteristic.DeleteCharacteristic(id);
+                    return View("ListCharacteristics");
             }
 
             return View();
