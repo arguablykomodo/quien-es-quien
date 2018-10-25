@@ -65,12 +65,31 @@ namespace quien_es_quien.Models {
             }
         }
 
-        public static void EditCharacteristic(int id, String name, String newName)
+        public static void EditCharacteristic(int id, String newName)
         {
             SqlConnection connection = new DaB().Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_EditCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("id", id);
+            command.Parameters.AddWithValue("newname", newName);
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nInvalid id?");
+            }
+        }
+
+        public static void DeleteCharacteristic(int id)
+        {
+            SqlConnection connection = new DaB().Connect();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_DeleteCharacteristic";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("id", id);
             try
             {
                 command.ExecuteNonQuery();
