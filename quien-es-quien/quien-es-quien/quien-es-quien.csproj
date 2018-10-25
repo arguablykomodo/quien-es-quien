@@ -109,7 +109,6 @@
     <Content Include="Content\helios.png" />
     <Content Include="Content\helios.obj" />
     <None Include="Content\Index.less" />
-    <None Include="Content\Site.less" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\OBJLoader.js" />
     <Content Include="Web.config">
