@@ -1,12 +1,9 @@
 ﻿<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/MhK-fuLbPTA?rel=0&amp;autoplay=1&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
 <link href="~/Content/Admin_Index.less" rel="stylesheet/less" type="text/css" />
 <script src="~/Scripts/OBJLoader.js"></script>
-<script src="~/Scripts/Admin_Index.js"></script>
 
 <header>
-    <div>
-        <img src="~/Content/helios.png" alt="?" />
-    </div>
+    <div id="eskere"></div>
     <div>
         <h1>Home De Administrador</h1>
     </div>
@@ -17,3 +14,44 @@
     <a href="/Config/ListCharacteristics">Ver Caracteristicas</a>
     <a href="#">Ver Preguntas</a>
 </nav>
+
+<script>
+    let camera;
+    let scene;
+    let helios;
+
+    camera = new THREE.PerspectiveCamera(45, 250 / 500, 1, 2000);
+    camera.position.z = 250;
+
+    scene = new THREE.Scene();
+
+    var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+    scene.add(ambientLight);
+
+    var pointLight = new THREE.PointLight(0xffffff, 0.8);
+    camera.add(pointLight);
+    scene.add(camera);
+
+    function loadModel() {
+        helios.scale.x = helios.scale.y = helios.scale.z = 0.2;
+        helios.position.y = -50;
+        scene.add(helios);
+    }
+
+    var loader = new THREE.OBJLoader();
+
+    loader.load('../Content/helios.obj', function (obj) { helios = obj; loadModel(); });
+
+    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(250, 500);
+    document.getElementById("eskere").appendChild(renderer.domElement);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+        helios.rotation.y += 0.02;
+    }
+    animate();
+</script>
