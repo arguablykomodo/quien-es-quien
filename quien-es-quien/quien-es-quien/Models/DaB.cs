@@ -101,22 +101,5 @@ namespace quien_es_quien.Models {
                 return null;
             }
         }
-
-        public Characteristic CreateCharacteristic(String s) {
-            SqlConnection connection = Connect();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = "sp_CreateCharacteristic";
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("name", s);
-            try {
-                SqlDataReader reader = command.ExecuteReader();
-                Models.Characteristic c = new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"]));
-                return c;
-            }
-            catch (Exception ex) {
-                Console.WriteLine("Caught exception: " + ex.Message + "\nCharacteristic already exits?");
-                return null;
-            }
-        }
     }
 }

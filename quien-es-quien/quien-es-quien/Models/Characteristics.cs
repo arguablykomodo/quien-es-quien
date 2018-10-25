@@ -14,6 +14,7 @@ namespace quien_es_quien.Models {
             this.name = "";
             this.id = -1;
         }
+
         public Characteristic(string name, int id) {
             this.name = name;
             this.id = id;
@@ -42,6 +43,42 @@ namespace quien_es_quien.Models {
                 }
             }
             return characteristics_list;
+        }
+
+        public static Characteristic CreateCharacteristic(String s)
+        {
+            SqlConnection connection = new DaB().Connect();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_CreateCharacteristic";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("name", s);
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+                Models.Characteristic c = new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"]));
+                return c;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nCharacteristic already exits?");
+                return null;
+            }
+        }
+
+        public static void EditCharacteristic(int id, String name, String newName)
+        {
+            SqlConnection connection = new DaB().Connect();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_EditCharacteristic";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nInvalid id?");
+            }
         }
     }
 
