@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Content\ListCharacteristics.less" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

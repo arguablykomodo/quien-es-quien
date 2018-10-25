@@ -1,15 +1,18 @@
-﻿@{
+﻿@using quien_es_quien.Models;
 
-    ViewBag.Title = "ListCharacteristics";
-
-    List<quien_es_quien.Models.Characteristic> characteristics = ViewBag.characteristics;
-
+@{
+    List<Characteristic> characteristics = ViewBag.characteristics;
 }
 
-<h2>ListCharacteristics</h2>
-<div>
-    @foreach (quien_es_quien.Models.Characteristic c in characteristics)
-    {
-        <p><span>@c.id</span><span>@c.name</span> <a href="/Admin/EditCharacteristic?action=edit"></a> </p>
+<link href="~/Content/ListCharacteristics.less" rel="stylesheet/less" type="text/css" />
+
+<h2>Caracteristicas:</h2>
+<ul>
+    @foreach (Characteristic c in characteristics) {
+        <li>
+            <span>@c.name</span>
+            <a href="@Url.Action("EditCharacteristic", new { name = c.name, id = c.id, action = "edit" })">✎</a>
+            <a href="@Url.Action("EditCharacteristic", new { name = c.name, id = c.id, action = "delete" })">🗑</a>
+        </li>
     }
-</div>
+</ul>
