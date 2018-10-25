@@ -50,8 +50,8 @@ namespace quien_es_quien.Models {
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_UpdateBitcoins";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("username", u.Username);
-            command.Parameters.AddWithValue("bitcoins", bitcoins);
+            command.Parameters.AddWithValue("@username", u.Username);
+            command.Parameters.AddWithValue("@bitcoins", bitcoins);
 
             try {
                 SqlDataReader reader = command.ExecuteReader();
@@ -79,8 +79,8 @@ namespace quien_es_quien.Models {
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_Login";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("username", username);
-            command.Parameters.AddWithValue("password", password);
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@password", password);
 
             try {
                 SqlDataReader reader = command.ExecuteReader();
