@@ -26,7 +26,7 @@ namespace quien_es_quien.Controllers
             return View();
         }
 
-        public ActionResult EditCharacteristic(int id = -1, string name = "", string _action = "se recibió null, cortate la chota")
+        public ActionResult EditCharacteristic(int _id = -1, string name = "", string _action = "se recibió null, cortate la chota")
         {
             switch(_action) {
                 case "create":
@@ -37,17 +37,17 @@ namespace quien_es_quien.Controllers
                 case "edit":
                     ViewBag.action = _action;
                     ViewBag.name = name;
-                    ViewBag.id = id;
+                    ViewBag.id = _id;
                     return View();
                 case "post":
-                    if(id == -1) {
+                    if(_id == -1) {
                         Models.Characteristic.CreateCharacteristic(name);
                     } else {
-                        Models.Characteristic.EditCharacteristic(id, name);
+                        Models.Characteristic.EditCharacteristic(_id, name);
                     }
                     return RedirectToAction("ListCharacteristics");
                 case "delete":
-                    Models.Characteristic.DeleteCharacteristic(id);
+                    Models.Characteristic.DeleteCharacteristic(_id);
                     System.Diagnostics.Debug.WriteLine("Removed dick");
                     return RedirectToAction("ListCharacteristics");
             }
