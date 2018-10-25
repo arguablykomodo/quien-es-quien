@@ -26,15 +26,15 @@ namespace quien_es_quien.Controllers
             return View();
         }
 
-        public ActionResult EditCharacteristic(int id = -1, string name = "", string action = "")
+        public ActionResult EditCharacteristic(int id = -1, string name = "", string _action = "")
         {
-            switch (action)
+            switch (_action)
             {
                 case "create":
-                    ViewBag.action = action;
+                    ViewBag.action = _action;
                     return View();
                 case "edit":
-                    ViewBag.action = action;
+                    ViewBag.action = _action;
                     ViewBag.name = name;
                     ViewBag.id = id;
                     return View();
@@ -47,13 +47,14 @@ namespace quien_es_quien.Controllers
                     {
                         Models.Characteristic.EditCharacteristic(id, name);
                     }
-                    return View("ListCharacteristics");
+                    return RedirectToAction("ListCharacteristics");
                 case "delete":
                     Models.Characteristic.DeleteCharacteristic(id);
-                    return View("ListCharacteristics");
+                    
+                    return RedirectToAction("ListCharacteristics");
             }
-
-            return View();
+            System.Diagnostics.Debug.WriteLine("Sorete y la reconcha de tu madre la re puta que te pario");
+            throw new System.Exception("La concha de tu madre all boys");
         }
     }
 }

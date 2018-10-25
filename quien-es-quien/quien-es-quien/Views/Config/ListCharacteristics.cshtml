@@ -11,8 +11,8 @@
     @foreach (Characteristic c in characteristics) {
         <li>
             <span>@c.name</span>
-            <a href="@Url.Action("EditCharacteristic", new { name = c.name, id = c.id, action = "edit" })">✎</a>
-            <a href="@Url.Action("EditCharacteristic", new { name = c.name, id = c.id, action = "delete" })">🗑</a>
+            <a href="/Config/EditCharacteristic?name=@c.name&id=@c.id&_action=edit">✎</a>
+            <a href="/Config/EditCharacteristic?name=@c.name&id=@c.id&_action=delete">🗑</a>
         </li>
     }
 </ul>
