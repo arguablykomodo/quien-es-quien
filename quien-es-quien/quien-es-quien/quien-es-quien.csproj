@@ -111,6 +111,7 @@
     <None Include="Content\Index.less" />
     <None Include="Content\Site.less" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\OBJLoader.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -148,7 +149,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
