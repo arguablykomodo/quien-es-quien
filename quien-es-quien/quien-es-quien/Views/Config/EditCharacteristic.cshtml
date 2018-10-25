@@ -1,7 +1,13 @@
-﻿
+﻿@using quien_es_quien.Models;
+
 @{
     ViewBag.Title = "EditCharacteristic";
+
+    Characteristic c = new Characteristic(ViewBag.name.ToString(), (int)ViewBag.id);
 }
 
 <h2>EditCharacteristic</h2>
 
+<form action="/Config/EditCharacteristic?id=@c.id&name=@c.name&_action=post">
+    <input type="text" value="@c.name" />
+</form>
