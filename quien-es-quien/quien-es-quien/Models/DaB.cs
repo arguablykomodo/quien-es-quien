@@ -22,7 +22,7 @@ namespace quien_es_quien.Models {
             catch(Exception e) {
                 System.Diagnostics.Debug.Print("Failed connection: " +e.Message+ " ("+e.Source+")");
                 
-               // use_connection = false;
+                use_connection = false;
             }
         }
         ~DaB() {
