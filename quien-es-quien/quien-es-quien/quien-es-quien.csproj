@@ -109,29 +109,12 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="Content\Admin_Index.scss" />
-    <Content Include="Content\Admin_Index.css">
-      <DependentUpon>Admin_Index.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Admin_Index.min.css">
-      <DependentUpon>Admin_Index.css</DependentUpon>
-    </Content>
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\helios.png" />
     <Content Include="Content\helios.obj" />
     <None Include="Content\Index.scss" />
-    <Content Include="Content\Index.css">
-      <DependentUpon>Index.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Index.min.css">
-      <DependentUpon>Index.css</DependentUpon>
-    </Content>
-    <Content Include="Content\ListCharacteristics.css">
-      <DependentUpon>ListCharacteristics.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\ListCharacteristics.min.css">
-      <DependentUpon>ListCharacteristics.css</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\in-browser-sass-standalone.min.js" />
     <Content Include="Scripts\OBJLoader.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
