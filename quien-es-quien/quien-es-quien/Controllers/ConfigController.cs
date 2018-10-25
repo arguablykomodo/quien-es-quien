@@ -26,12 +26,13 @@ namespace quien_es_quien.Controllers
             return View();
         }
 
-        public ActionResult EditCharacteristic(int id = -1, string name = "", string _action = "")
+        public ActionResult EditCharacteristic(int id = -1, string name = "", string _action = "se recibió null, cortate la chota")
         {
-            switch (_action)
-            {
+            switch(_action) {
                 case "create":
                     ViewBag.action = _action;
+                    ViewBag.name = "";
+                    ViewBag.id = -1;
                     return View();
                 case "edit":
                     ViewBag.action = _action;
@@ -39,22 +40,19 @@ namespace quien_es_quien.Controllers
                     ViewBag.id = id;
                     return View();
                 case "post":
-                    if (id == -1)
-                    {
+                    if(id == -1) {
                         Models.Characteristic.CreateCharacteristic(name);
-                    }
-                    else
-                    {
+                    } else {
                         Models.Characteristic.EditCharacteristic(id, name);
                     }
                     return RedirectToAction("ListCharacteristics");
                 case "delete":
                     Models.Characteristic.DeleteCharacteristic(id);
-                    
+                    System.Diagnostics.Debug.WriteLine("Removed dick");
                     return RedirectToAction("ListCharacteristics");
             }
             System.Diagnostics.Debug.WriteLine("Sorete y la reconcha de tu madre la re puta que te pario");
-            throw new System.Exception("La concha de tu madre all boys");
+            throw new System.Exception("La concha de tu madre all boys (si se recibió null me corto la chota: " + _action+" )");
         }
     }
 }
