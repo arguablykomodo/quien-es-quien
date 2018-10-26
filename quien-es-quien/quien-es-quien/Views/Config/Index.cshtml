@@ -38,7 +38,7 @@
         scene.add(helios);
     });
 
-    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(250, 500);
     document.getElementById("helios").appendChild(renderer.domElement);
