@@ -108,11 +108,12 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <None Include="Content\Admin_Index.scss" />
+    <None Include="Content\Config\Index.scss" />
     <Content Include="Content\bg.jpg" />
+    <Content Include="Content\Global.css" />
     <Content Include="Content\helios.png" />
     <Content Include="Content\helios.obj" />
-    <None Include="Content\Index.scss" />
+    <None Include="Content\Home\Index.scss" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\in-browser-sass-standalone.min.js" />
     <Content Include="Scripts\OBJLoader.js" />
@@ -135,7 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <None Include="Content\ListCharacteristics.scss" />
+    <None Include="Content\Config\ListCharacteristics.scss" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
