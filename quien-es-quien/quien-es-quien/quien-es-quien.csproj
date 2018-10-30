@@ -114,6 +114,7 @@
     <Content Include="Content\helios.png" />
     <Content Include="Content\helios.obj" />
     <None Include="Content\Home\Index.scss" />
+    <None Include="Content\Login\Index.scss" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\HeliosSpin.js" />
     <Content Include="Scripts\in-browser-sass-standalone.min.js" />
@@ -148,6 +149,7 @@
     <Content Include="Views\Config\Index.cshtml" />
     <Content Include="Views\Config\ListCharacteristics.cshtml" />
     <Content Include="Views\Config\EditCharacteristic.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,7 +160,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

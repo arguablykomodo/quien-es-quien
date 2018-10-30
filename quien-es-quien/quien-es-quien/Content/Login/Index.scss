@@ -1,0 +1,27 @@
+﻿body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-gap: 1em;
+    padding: 1em;
+    background: rgba(lime, .25);
+    border: 2px dashed cyan;
+
+    transform: rotate(#{random() * 10 - 5}deg);
+    transition: transform 1s;
+    &:hover {
+        transform: rotate(0);
+    }
+}
+
+h1 {
+    grid-column: 1 / 3;
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+}
