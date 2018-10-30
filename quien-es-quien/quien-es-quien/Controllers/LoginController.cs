@@ -21,7 +21,7 @@ namespace quien_es_quien.Controllers
                 Session["User"] = null;
                 return RedirectToAction("Index");
             } else {
-                Session["user"] = loggedUser;
+                Session["User"] = loggedUser;
                 return RedirectToAction("Index", "Home");
             }
         }
