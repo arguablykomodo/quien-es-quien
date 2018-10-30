@@ -115,6 +115,7 @@
     <Content Include="Content\helios.obj" />
     <None Include="Content\Home\Index.scss" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\HeliosSpin.js" />
     <Content Include="Scripts\in-browser-sass-standalone.min.js" />
     <Content Include="Scripts\OBJLoader.js" />
     <Content Include="Web.config">
