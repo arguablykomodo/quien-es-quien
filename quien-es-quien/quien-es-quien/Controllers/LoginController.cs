@@ -13,5 +13,17 @@ namespace quien_es_quien.Controllers
         {
             return View();
         }
+
+        public ActionResult Login(string name,string pass) {
+            Models.DaB daB = new Models.DaB();
+            var loggedUser = daB.LoginUser(name, pass);
+            if(loggedUser==null) {
+                Session["User"] = null;
+                return RedirectToAction("Index");
+            } else {
+                Session["user"] = loggedUser;
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }
