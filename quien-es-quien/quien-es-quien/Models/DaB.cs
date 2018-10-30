@@ -14,7 +14,7 @@ namespace quien_es_quien.Models {
     public class DaB {
         public SqlConnection sql;
         public static string connectionString = @"Server=10.128.8.16;Database=QEQC01;Uid=QEQC01;Pwd=QEQC01";
-        public static bool use_connection = true;
+        public static bool use_connection = false;
         public DaB() {
             try {
                 Connect();
