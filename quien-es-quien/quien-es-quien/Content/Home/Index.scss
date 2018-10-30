@@ -14,60 +14,14 @@ body {
     flex-direction: column;
 }
 
-@keyframes wiggle_logo_1 {
-    from {
-        transform: rotateY(0) rotateX(0);
-    }
-
-    50% {
-        transform: rotateY(0.5turn) rotateX(15deg);
-    }
-
-    to {
-        transform: rotateY(1turn) rotateX(0);
-    }
-}
-
-@keyframes wiggle_logo_2 {
-    from {
-        transform: rotateY(0) rotateX(0) translateZ(1rem);
-    }
-
-    50% {
-        transform: rotateY(0.5turn) rotateX(15deg) translateZ(1rem);
-    }
-
-    to {
-        transform: rotateY(1turn) rotateX(0) translateZ(1rem);
-    }
-}
-
-.logo {
+#title {
     flex-grow: 1;
-
-    div {
-        width: 100vw;
-        height: 50vh;
-        position: fixed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &:first-child * {
-            animation: wiggle_logo_1 2s infinite linear;
-            font-size: 15rem;
-            margin: 0;
-        }
-
-        &:last-child * {
-            animation: wiggle_logo_2 2s infinite linear;
-            margin: 0;
-            color: #91e9ff;
-        }
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes wigglea {
+@keyframes wiggle {
     from {
         transform: rotate(-5deg);
     }
@@ -80,7 +34,7 @@ body {
 .links {
     flex-grow: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-evenly;
 
     a {
@@ -89,6 +43,6 @@ body {
         text-align: center;
         font-size: 2em;
         @include threedshadow(#ff71ce, 5);
-        animation: wigglea 1s infinite alternate ease-in-out;
+        animation: wiggle 1s infinite alternate ease-in-out;
     }
 }

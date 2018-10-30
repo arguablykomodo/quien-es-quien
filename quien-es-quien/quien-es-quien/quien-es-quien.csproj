@@ -119,6 +119,7 @@
     <Content Include="Scripts\HeliosSpin.js" />
     <Content Include="Scripts\in-browser-sass-standalone.min.js" />
     <Content Include="Scripts\OBJLoader.js" />
+    <Content Include="Scripts\TitleSpin.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -140,6 +141,8 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="Content\Config\ListCharacteristics.scss" />
+    <Content Include="Content\question.obj" />
+    <Content Include="Content\title.obj" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
