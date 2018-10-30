@@ -9,7 +9,7 @@ form {
     grid-template-columns: max-content 1fr;
     grid-gap: 1em;
     padding: 1em;
-    background: rgba(lime, .25);
+    background: rgba(lime, .5);
     border: 2px dashed cyan;
 
     transform: rotate(#{random() * 10 - 5}deg);
@@ -24,4 +24,13 @@ h1 {
     text-align: center;
     margin: 0;
     font-size: 1.5rem;
+    text-shadow: 0 0 5px black;
+}
+
+input[type=submit] {
+    grid-column: 1 / 3;
+    background: rgba(darkgreen, .5);
+    border: dashed 2px aqua;
+    color: aqua;
+    font-size: 1.5em; 
 }
