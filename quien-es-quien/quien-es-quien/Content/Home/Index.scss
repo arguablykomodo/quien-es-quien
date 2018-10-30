@@ -1,4 +1,13 @@
-﻿body {
+﻿@mixin threedshadow($color, $depth) {
+    $all: ();
+
+    @for $i from 1 through $depth {
+        $all: append($all, append($i*1px $i*1px 0, $color), comma);
+        text-shadow: $all;
+    }
+}
+
+body {
     perspective: 50rem;
     overflow: hidden;
     display: flex;
@@ -79,7 +88,7 @@
         text-decoration: none;
         text-align: center;
         font-size: 2em;
-        text-shadow: 1px 1px #ff71ce, 2px 2px #ff71ce, 3px 3px #ff71ce, 4px 4px #ff71ce, 5px 5px #ff71ce;
+        @include threedshadow(#ff71ce, 5);
         animation: wigglea 1s infinite alternate ease-in-out;
     }
 }
