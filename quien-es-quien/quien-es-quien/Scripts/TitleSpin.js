@@ -1,5 +1,5 @@
 ﻿const camera = new THREE.PerspectiveCamera(45, 1, 1, 2000);
-camera.position.z = 100;
+camera.position.z = 5;
 
 const scene = new THREE.Scene();
 
@@ -13,17 +13,23 @@ scene.add(camera);
 const loader = new THREE.OBJLoader();
 let title;
 loader.load("../Content/title.obj", obj => {
+    obj.traverse(function (child) {
+        if (child instanceof THREE.Mesh) {
+            child.material = new THREE.MeshPhongMaterial({ color: 0x91e9ff });
+        }
+    });
     title = obj;
-    const material = new THREE.MeshBasicMaterial({ color: 0x91e9ff });
-    title.material = material;
     scene.add(title);
 });
 
 let question;
 loader.load("../Content/question.obj", obj => {
+    obj.traverse(function (child) {
+        if (child instanceof THREE.Mesh) {
+            child.material = new THREE.MeshPhongMaterial({ color: 0x01cdfe });
+        }
+    });
     question = obj;
-    const material = new THREE.MeshBasicMaterial({ color: 0x01cdfe });
-    question.material = material;
     scene.add(question);
 });
 
