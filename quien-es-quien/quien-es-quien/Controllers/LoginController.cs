@@ -19,7 +19,7 @@ namespace quien_es_quien.Controllers
             var loggedUser = daB.LoginUser(name, pass);
             if(loggedUser==null) {
                 Session["User"] = null;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Login");
             } else {
                 Session["User"] = loggedUser;
                 return RedirectToAction("Index", "Home");
