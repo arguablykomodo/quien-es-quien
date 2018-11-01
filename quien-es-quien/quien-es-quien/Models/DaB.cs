@@ -14,7 +14,7 @@ namespace quien_es_quien.Models {
     public class DaB {
         public SqlConnection sql;
         public static string connectionString = @"Server=10.128.8.16;Database=QEQC01;Uid=QEQC01;Pwd=QEQC01";
-        public static bool use_connection = false;
+        public static bool use_connection = true;
         public DaB() {
             try {
                 Connect();
@@ -73,14 +73,14 @@ namespace quien_es_quien.Models {
                 }
             }
 
-            password = Utils.CreateMD5(password);
+            byte[] hash = Utils.CreateMD5(password);
 
             SqlConnection connection = Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_Login";
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
+            command.Parameters.AddWithValue("@password", hash);
 
             try {
                 SqlDataReader reader = command.ExecuteReader();
