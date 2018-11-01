@@ -13,8 +13,13 @@ scene.add(camera);
 let helios;
 const loader = new THREE.OBJLoader();
 loader.load("../Content/helios.obj", obj => {
-  helios = obj;
-  scene.add(helios);
+    obj.traverse(function (child) {
+        if (child instanceof THREE.Mesh) {
+            child.material = new THREE.MeshPhongMaterial({ color: 0xaaaaaa });
+        }
+    });
+    helios = obj;
+    scene.add(helios);
 });
 
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -24,16 +29,16 @@ document.getElementById("helios").appendChild(renderer.domElement);
 
 let speed = 0;
 document.addEventListener("mousemove", e => {
-  speed += e.movementX;
+    speed += e.movementX;
 });
 
 function animate() {
-  requestAnimationFrame(animate);
-  camera.lookAt(scene.position);
-  renderer.render(scene, camera);
-  if (helios) {
-    helios.rotation.y += 0.01 + speed / 1000;
-    speed *= 0.9;
-  }
+    requestAnimationFrame(animate);
+    camera.lookAt(scene.position);
+    renderer.render(scene, camera);
+    if (helios) {
+        helios.rotation.y += 0.01 + speed / 1000;
+        speed *= 0.9;
+    }
 }
 animate();
