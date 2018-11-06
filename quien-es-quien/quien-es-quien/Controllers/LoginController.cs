@@ -25,5 +25,12 @@ namespace quien_es_quien.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        public ActionResult Register() => View();
+        public ActionResult RegisterUser(string user,string pass) {
+            var dab = new Models.DaB();
+            
+
+            return RedirectToAction("Index");
+        }
     }
 }

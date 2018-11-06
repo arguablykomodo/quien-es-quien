@@ -66,7 +66,7 @@ namespace quien_es_quien.Models {
         public User LoginUser(string username, string password) {
             if (!use_connection) {
                 if (username == "Comunism" && password == "DidntFail") {
-                    return new User(10, username, 10, 10);
+                    return new User(10, username, 10, 10, 1);
                 }
                 else {
                     return null;
@@ -91,7 +91,8 @@ namespace quien_es_quien.Models {
                         String uname = reader["username"].ToString();
                         long bitcoins = Convert.ToInt64(reader["bitcoins"]);
                         int bestscore = Convert.ToInt32(reader["bestscore"]);
-                        return new User(bitcoins, uname, 0, bestscore);
+                        bool admin = Convert.ToBoolean(reader["admin"]);
+                        return new User(bitcoins, uname, 0, bestscore, admin);
                     }
                 }
                 return null;
