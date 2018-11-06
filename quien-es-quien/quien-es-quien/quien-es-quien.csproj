@@ -117,9 +117,7 @@
     <None Include="Content\Login\Index.scss" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\HeliosSpin.js" />
-    <Content Include="Scripts\in-browser-sass-standalone.min.js" />
     <Content Include="Scripts\OBJLoader.js" />
-    <Content Include="Scripts\sass.worker.js" />
     <Content Include="Scripts\SassCache.js" />
     <Content Include="Scripts\TitleSpin.js" />
     <Content Include="Web.config">
