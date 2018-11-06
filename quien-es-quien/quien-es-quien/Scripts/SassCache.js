@@ -1,21 +1,37 @@
-﻿if (!localStorage.getItem("sass")) compile();
-else document.addEventListener("load", compile);
-
-async function compile() {
-  const sassElem = document.createElement("script");
-  sassElem.type = "text/javascript";
-  sassElem.src =
-    "https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.10.11/sass.min.js";
-  sassElem.onload = () => {
-    const compiler = new Sass();
-    const compile = (text) => new Promise(function (resolve, reject) {
-      compiler.compile(text, result => resolve(result));
-    });
-    const css = "";
-    for (const link of document.querySelectorAll(`link[type="text/scss"]`)) {
-      css += await compile(await new Request(link.href).text());
-    }
-  };
+﻿const style = document.createElement("style");
+document.body.append(style);
+if (localStorage.getItem("css")) {
+    style.innerHTML = localStorage.getItem("css");
+    window.addEventListener("load", doEverything);
+} else {
+    document.addEventListener("DOMContentLoaded", doEverything);
 }
 
-function load() {}
+function doEverything() {
+    Sass.setWorkerUrl("/Scripts/worker.js");
+    const sass = new Sass();
+    sass.options({ style: Sass.style.compressed }, () => { });
+
+    function compile(url) {
+        return new Promise(r => {
+            fetch(url)
+                .then(response => response.text())
+                .then(text =>
+                    sass.compile(text, function callback(scss) {
+                        r(scss.text);
+                    })
+                );
+        });
+    }
+
+    const promises = [];
+    for (const el of document.querySelectorAll('[type="text/scss"]')) {
+        promises.push(compile(el.getAttribute("href")));
+    }
+
+    Promise.all(promises).then(results => {
+        const css = results.join("\n");
+        localStorage.setItem("css", css);
+        style.innerHTML = css;
+    });
+}

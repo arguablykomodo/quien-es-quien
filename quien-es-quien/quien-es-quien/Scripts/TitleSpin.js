@@ -22,7 +22,7 @@ loader.load("../Content/title.obj", obj => {
     scene.add(title);
 });
 
-let question;
+/*let question;
 loader.load("../Content/question.obj", obj => {
     obj.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
@@ -31,7 +31,7 @@ loader.load("../Content/question.obj", obj => {
     });
     question = obj;
     scene.add(question);
-});
+});*/
 
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -50,9 +50,9 @@ function animate() {
     if (title) {
         title.rotation.y += 0.01 + speed / 1000;
     }
-    if (question) {
+    /*if (question) {
         question.rotation.y += 0.01 + speed / 1000;
-    }
+    }*/
     speed *= 0.9;
 }
 animate();

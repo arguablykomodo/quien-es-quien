@@ -7,8 +7,12 @@
     <link href="~/Content/Global.css" rel="stylesheet" />
 </head>
 <body>
-    <iframe src="https://www.youtube.com/embed/MhK-fuLbPTA?autoplay=1" allow="autoplay; encrypted-media"></iframe>
+    <audio autoplay loop>
+        <source src="~/Content/song.ogg" type="audio/ogg">
+        <source src="~/Content/song.mp3" type="audio/mp3">
+    </audio>
     @RenderBody()
-    <script src="~/Scripts/in-browser-sass-standalone.min.js"></script>
+    <script src="~/Scripts/sass.js"></script>
+    <script src="~/Scripts/SassCache.js"></script>
 </body>
 </html>

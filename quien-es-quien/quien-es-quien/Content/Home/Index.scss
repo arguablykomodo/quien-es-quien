@@ -8,7 +8,7 @@
 }
 
 body {
-    perspective: 50rem;
+    perspective: 150rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@ body {
     flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: inherit;
 }
 
 @keyframes wiggle {
@@ -27,7 +27,7 @@ body {
     }
 
     to {
-        transform: rotate(5deg);
+        transform: rotate(-5deg);
     }
 }
 
