@@ -111,7 +111,6 @@
     <None Include="Content\Config\Index.scss" />
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\Global.css" />
-    <Content Include="Content\helios.png" />
     <Content Include="Content\helios.obj" />
     <None Include="Content\Home\Index.scss" />
     <None Include="Content\Login\Index.scss" />
@@ -141,7 +140,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="Content\Config\ListCharacteristics.scss" />
-    <Content Include="Content\question.obj" />
     <Content Include="Content\title.obj" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

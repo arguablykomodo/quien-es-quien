@@ -1,5 +1,5 @@
-﻿const camera = new THREE.PerspectiveCamera(45, 1, 1, 2000);
-camera.position.z = 5;
+﻿const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
+camera.position.z = 1;
 
 const scene = new THREE.Scene();
 
@@ -13,25 +13,17 @@ scene.add(camera);
 const loader = new THREE.OBJLoader();
 let title;
 loader.load("../Content/title.obj", obj => {
+    i = 0;
     obj.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
-            child.material = new THREE.MeshPhongMaterial({ color: 0x91e9ff });
+            if (i > 0) child.material = new THREE.MeshPhongMaterial({ color: 0x91e9ff });
+            else child.material = new THREE.MeshPhongMaterial({ color: 0x01cdfe });
+            i++;
         }
     });
     title = obj;
     scene.add(title);
 });
-
-/*let question;
-loader.load("../Content/question.obj", obj => {
-    obj.traverse(function (child) {
-        if (child instanceof THREE.Mesh) {
-            child.material = new THREE.MeshPhongMaterial({ color: 0x01cdfe });
-        }
-    });
-    question = obj;
-    scene.add(question);
-});*/
 
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
