@@ -1,34 +1,37 @@
-﻿if (!localStorage.getItem("css")) compile();
-else document.onload = compile;
-
-async function compile() {
-    console.log("hello");
-    const sassElem = document.createElement("script");
-    sassElem.type = "text/javascript";
-    sassElem.src =
-        "https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.10.11/sass.min.js";
-    document.body.appendChild(sassElem);
-    sassElem.onload = async () => {
-        const compiler = new Sass("Scripts/sass.worker.js");
-        compiler.options({ style: Sass.style.compressed }, () => { });
-        const compile = (text) => new Promise(function (resolve, reject) {
-            compiler.compile(text, result => resolve(result));
-        });
-        let css = "";
-        for (const link of document.querySelectorAll(`link[type="text/scss"]`)) {
-            console.log("link", link.href);
-            const request = new Request(link.href);
-            const scss = await request.text();
-            console.log("css", scss);
-            css += JSON.stringify(await compile(scss));
-        }
-        localStorage.setItem("css", css);
-        load();
-    };
+﻿const style = document.createElement("style");
+document.body.append(style);
+if (localStorage.getItem("css")) {
+  style.innerHTML = localStorage.getItem("css");
+  window.addEventListener("load", doEverything);
+} else {
+  doEverything();
 }
 
-function load() {
-    const el = document.createElement("style");
-    el.innerText = localStorage.getItem("css");
-    document.body.appendChild(el);
+function doEverything() {
+  Sass.setWorkerUrl("./worker.js");
+  const sass = new Sass();
+  sass.options({ style: Sass.style.compressed }, () => {});
+
+  function compile(url) {
+    return new Promise(r => {
+      fetch(url)
+        .then(response => response.text())
+        .then(text =>
+          sass.compile(text, function callback(scss) {
+            r(scss.text);
+          })
+        );
+    });
+  }
+
+  const promises = [];
+  for (const el of document.querySelectorAll('[type="text/scss"]')) {
+    promises.push(compile(el.getAttribute("href")));
+  }
+
+  Promise.all(promises).then(results => {
+    const css = results.join("\n");
+    localStorage.setItem("css", css);
+    style.innerHTML = css;
+  });
 }
