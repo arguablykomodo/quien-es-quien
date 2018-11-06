@@ -39,68 +39,6 @@ namespace quien_es_quien.Models {
                 sql.Close();
         }
 
-        public bool UpdateBitcoins(User u, long bitcoins) {
-            if (u.Bitcoins - bitcoins < bitcoins && bitcoins < 0) {
-                bitcoins = u.Bitcoins;
-            }
-
-            u.Bitcoins = u.Bitcoins + bitcoins;
-
-            SqlConnection connection = Connect();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = "sp_UpdateBitcoins";
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@username", u.Username);
-            command.Parameters.AddWithValue("@bitcoins", bitcoins);
-
-            try {
-                SqlDataReader reader = command.ExecuteReader();
-                return Convert.ToBoolean(reader["code"]);
-            }
-            catch (Exception ex) {
-                Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
-                return false;
-            }
-        }
-
-        public User LoginUser(string username, string password) {
-            if (!use_connection) {
-                if (username == "Comunism" && password == "DidntFail") {
-                    return new User(10, username, 10, 10, 1);
-                }
-                else {
-                    return null;
-                }
-            }
-
-            byte[] hash = Utils.CreateMD5(password);
-
-            SqlConnection connection = Connect();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = "sp_Login";
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", hash);
-
-            try {
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read()) {
-                    int code = Convert.ToInt32(reader["code"]);
-                    if (code == 1) {
-                        String uname = reader["username"].ToString();
-                        long bitcoins = Convert.ToInt64(reader["bitcoins"]);
-                        int bestscore = Convert.ToInt32(reader["bestscore"]);
-                        bool admin = Convert.ToBoolean(reader["admin"]);
-                        return new User(bitcoins, uname, 0, bestscore, admin);
-                    }
-                }
-                return null;
-            }
-            catch (Exception ex) {
-                Console.WriteLine("Caught exception: " + ex.Message + "\nWrong credentials?");
-                return null;
-            }
-        }
+ 
     }
 }

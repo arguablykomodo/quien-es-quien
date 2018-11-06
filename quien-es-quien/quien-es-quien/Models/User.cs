@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
 
 namespace quien_es_quien.Models {
     public class User {
@@ -23,15 +24,92 @@ namespace quien_es_quien.Models {
         public string Username { get => _username; }
         public int Score { get => _score; set => _score = value; }
         public int Bestscore { get => _bestscore; set => _bestscore = value; }
-        public bool Admin { get => _admin;}
+        public bool Admin { get => _admin; }
 
-        public void UpdateBitcoins(long bitcoins) {
-            if (this.Bitcoins - bitcoins < 0 && this.Bitcoins < 0) {
+        public bool UpdateBitcoins(long bitcoins) {
+            if(this.Bitcoins - bitcoins < 0 && this.Bitcoins < 0) {
                 this.Bitcoins = 0;
             }
-            DaB db = new DaB();
-            db.UpdateBitcoins(this, bitcoins);
-            db.Disconnect();
+
+            Bitcoins = Bitcoins + bitcoins;
+
+            DaB dab = new DaB();
+            SqlConnection connection = dab.Connect();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_UpdateBitcoins";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@username", Username);
+            command.Parameters.AddWithValue("@bitcoins", bitcoins);
+
+            try {
+                SqlDataReader reader = command.ExecuteReader();
+                return Convert.ToBoolean(reader["code"]);
+            } catch(Exception ex) {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
+                return false;
+            }
+        }
+
+        public static User LoginUser(string username, string password) {
+            byte[] hash = Utils.CreateMD5(password);
+
+            DaB dab = new DaB();
+            SqlConnection connection = dab.Connect();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_Login";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@password", hash);
+
+            try {
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read()) {
+                    int code = Convert.ToInt32(reader["code"]);
+                    if(code == 1) {
+                        String uname = reader["username"].ToString();
+                        long bitcoins = Convert.ToInt64(reader["bitcoins"]);
+                        int bestscore = Convert.ToInt32(reader["bestscore"]);
+                        bool admin = Convert.ToBoolean(reader["admin"]);
+                        return new User(bitcoins, uname, 0, bestscore, admin);
+                    }
+                }
+                return null;
+            } catch(Exception ex) {
+                Console.WriteLine("Caught exception: " + ex.Message + "\nWrong credentials?");
+                return null;
+            }
+        }
+
+        public static User RegisterUser(string username, string password, bool admin) {
+            byte[] hash = Utils.CreateMD5(password);
+
+            DaB dab = new DaB();
+            SqlConnection connection = dab.Connect();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "sp_Register";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@password", hash);
+            command.Parameters.AddWithValue("@admin", Convert.ToInt32(admin));
+
+            try {
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read()) {
+                    int code = Convert.ToInt32(reader["code"]);
+                    if(code == 1) {
+                        return new User(1000000, username, 0, 0, admin);
+                    }
+                }
+                return null;
+            } catch(Exception ex) {
+                Console.WriteLine("Caught exception: " + ex.Message);
+                return null;
+            }
         }
     }
 }
