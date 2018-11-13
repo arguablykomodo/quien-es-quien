@@ -9,8 +9,9 @@ namespace quien_es_quien.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Index(bool err = false)
         {
+            ViewBag.err = err;
             return View();
         }
 
@@ -19,7 +20,7 @@ namespace quien_es_quien.Controllers
             var loggedUser = Models.User.LoginUser(name, pass);
             if(loggedUser==null) {
                 Session["User"] = null;
-                return RedirectToAction("Index","Login");
+                return RedirectToAction("Index","Login", new { err = true });
             } else {
                 Session["User"] = loggedUser;
                 return RedirectToAction("Index", "Home");
