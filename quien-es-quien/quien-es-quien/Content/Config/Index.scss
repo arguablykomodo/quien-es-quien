@@ -1,4 +1,13 @@
-﻿header {
+﻿@mixin threedshadow($color, $depth) {
+    $all: ();
+
+    @for $i from 1 through $depth {
+        $all: append($all, append($i*1px $i*1px 0, $color), comma);
+        text-shadow: $all;
+    }
+}
+
+header {
     height: 50vh;
 
     div {
@@ -21,15 +30,10 @@
     }
 }
 
-img {
-    height: 50vh;
-    animation: rainbow 1s infinite linear;
-}
-
 h1 {
-    animation: rainbow 1s infinite linear;
+    animation: rainbow 10s infinite linear;
     color: #01cdfe;
-    text-shadow: 1px 1px #ff71ce, 2px 2px #ff71ce, 3px 3px #ff71ce, 4px 4px #ff71ce, 5px 5px #ff71ce;
+    @include threedshadow(#ff71ce, 5);
 }
 
 nav {
@@ -42,7 +46,7 @@ nav {
     a {
         font-size: 2em;
         color: #01cdfe;
-        text-shadow: 1px 1px #ff71ce, 2px 2px #ff71ce, 3px 3px #ff71ce, 4px 4px #ff71ce, 5px 5px #ff71ce;
+        @include threedshadow(#ff71ce, 5);
         text-decoration: wavy underline #01cdfe;
         padding: 0.5em;
     }
