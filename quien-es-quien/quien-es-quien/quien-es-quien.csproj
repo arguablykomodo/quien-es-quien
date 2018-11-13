@@ -110,6 +110,7 @@
     </None>
     <None Include="Content\Config\Index.scss" />
     <Content Include="Content\bg.jpg" />
+    <None Include="Content\Config\EditCharacteristic.scss" />
     <Content Include="Content\Global.css" />
     <Content Include="Content\helios.obj" />
     <None Include="Content\Home\Index.scss" />
