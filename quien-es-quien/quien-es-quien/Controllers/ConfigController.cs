@@ -56,7 +56,7 @@ namespace quien_es_quien.Controllers
         public ActionResult ListCharacters() {
             return View();
         }
-        public ActionResult EditCharacter(Models.Character,string _action) {
+        public ActionResult EditCharacter(Models.Character character,string _action) {
             switch(_action) {
                 case "create":
                     ViewBag.action = _action;
@@ -65,19 +65,19 @@ namespace quien_es_quien.Controllers
                     return View();
                 case "edit":
                     ViewBag.action = _action;
-                    ViewBag.name = name;
-                    ViewBag.id = _id;
+                    ViewBag.name = character.name;
+                    ViewBag.id = character.id;
                     return View();
                 case "post":
-                    if(_id == -1) {
-                        Models.Characteristic.CreateCharacteristic(name);
+                    if(character.id == -1) {
+                        Models.Characteristic.CreateCharacteristic(character.name);
                     } else {
-                        Models.Characteristic.EditCharacteristic(_id, name);
+                        Models.Characteristic.EditCharacteristic(character.id, character.name);
                     }
-                    return RedirectToAction("ListCharacteristics");
+                    return RedirectToAction("ListCharacters");
                 case "delete":
-                    Models.Characteristic.DeleteCharacteristic(_id);
-                    return RedirectToAction("ListCharacteristics");
+                    Models.Characteristic.DeleteCharacteristic(character.id);
+                    return RedirectToAction("ListCharacters");
             }
             throw new System.Exception("Invalid action \"" + _action + "\"");
         }
