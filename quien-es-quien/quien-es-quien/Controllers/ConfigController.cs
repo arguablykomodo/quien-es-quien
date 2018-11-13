@@ -52,5 +52,9 @@ namespace quien_es_quien.Controllers
             }
             throw new System.Exception("Invalid action \""+_action+"\"");
         }
+
+        public ActionResult ViewCharacters(int id=-1) {
+            return View();
+        }
     }
 }

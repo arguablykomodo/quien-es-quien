@@ -5,5 +5,6 @@ using System.Web;
 
 namespace quien_es_quien.Models {
     public class Characters {
+        public string name;
     }
 }
