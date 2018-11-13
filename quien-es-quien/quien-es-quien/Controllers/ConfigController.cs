@@ -25,7 +25,6 @@ namespace quien_es_quien.Controllers
 
             return View();
         }
-
         public ActionResult EditCharacteristic(int _id = -1, string name = "", string _action = "")
         {
             switch(_action) {
