@@ -36,7 +36,8 @@ namespace quien_es_quien.Models {
 
         public void Disconnect() {
             if (use_connection)
-                sql.Close();
+                try { sql.Close(); }
+                catch { }
         }
 
  

@@ -1,11 +1,16 @@
-﻿<link href="~/Content/Home/Index.scss" rel="stylesheet" type="text/scss" />
+﻿@using quien_es_quien.Models;
+
+<link href="~/Content/Home/Index.scss" rel="stylesheet" type="text/scss" />
 
 <div id="title"></div>
 
 <div class="links">
     <a href="/Login/">Iniciar Sesion</a>
     <a href="#">Jugar como invitado</a>
-    <a href="/Config/">Admin</a>
+    @{User user = (User) Session["user"];}
+    @if (user != null && user.Admin) {
+        <a href="/Config/">Admin</a>
+    }
 </div>
 
 <script src="~/Scripts/three.min.js"></script>
