@@ -6,7 +6,12 @@
 
 <div class="links">
     @{User user = (User)Session["user"];}
-    <a href="@Url.Action("Index", "Login")">Iniciar Sesion</a>
+    @if (user != null) {
+        <a href="@Url.Action("Logout", "Login")">Cerrar Sesion</a>
+    }
+    else {
+        <a href="@Url.Action("Index", "Login")">Iniciar Sesion</a>
+    }
     <a href="#">Jugar como invitado</a>
     @if (user != null && user.Admin) {
         <a href="@Url.Action("Index", "Config")">Menu de Administrador</a>
