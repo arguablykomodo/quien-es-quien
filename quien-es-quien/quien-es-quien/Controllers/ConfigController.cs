@@ -53,8 +53,34 @@ namespace quien_es_quien.Controllers
             throw new System.Exception("Invalid action \""+_action+"\"");
         }
 
-        public ActionResult ViewCharacters(int id=-1) {
+        public ActionResult ListCharacters() {
             return View();
         }
+        public ActionResult EditCharacter(Models.Character,string _action) {
+            switch(_action) {
+                case "create":
+                    ViewBag.action = _action;
+                    ViewBag.name = "";
+                    ViewBag.id = -1;
+                    return View();
+                case "edit":
+                    ViewBag.action = _action;
+                    ViewBag.name = name;
+                    ViewBag.id = _id;
+                    return View();
+                case "post":
+                    if(_id == -1) {
+                        Models.Characteristic.CreateCharacteristic(name);
+                    } else {
+                        Models.Characteristic.EditCharacteristic(_id, name);
+                    }
+                    return RedirectToAction("ListCharacteristics");
+                case "delete":
+                    Models.Characteristic.DeleteCharacteristic(_id);
+                    return RedirectToAction("ListCharacteristics");
+            }
+            throw new System.Exception("Invalid action \"" + _action + "\"");
+        }
+
     }
 }
