@@ -10,10 +10,10 @@
 <a href="@Url.Action("EditCharacteristic", new { _action="create" })">Crear Nueva Caracteristica</a>
 <ul>
     @foreach (Characteristic c in characteristics) {
-    <li>
-        <span>@c.name</span>
-        <a href="@Url.Action("EditCharacteristic", new { name=c.name, _id=c.id, _action="edit" })">✎</a>
-        <a href="@Url.Action("EditCharacteristic", new { name=c.name, _id=c.id, _action="delete" })">🗑</a>
-    </li>
+        <li>
+            <span>@c.name</span>
+            <a href="@Url.Action("EditCharacteristic", new { name=c.name, _id=c.id, _action="edit" })">✎</a>
+            <a href="@Url.Action("EditCharacteristic", new { name=c.name, _id=c.id, _action="delete" })">🗑</a>
+        </li>
     }
 </ul>
