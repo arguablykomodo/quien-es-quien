@@ -1,7 +1,7 @@
 ﻿const style = document.createElement("style");
 document.body.append(style);
-if (localStorage.getItem("css")) {
-    style.innerHTML = localStorage.getItem("css");
+if (localStorage.getItem(`css-${location.pathname}`)) {
+    style.innerHTML = localStorage.getItem(`css-${location.pathname}`);
     window.addEventListener("load", doEverything);
 } else {
     document.addEventListener("DOMContentLoaded", doEverything);
@@ -31,7 +31,7 @@ function doEverything() {
 
     Promise.all(promises).then(results => {
         const css = results.join("\n");
-        localStorage.setItem("css", css);
+        localStorage.setItem(`css-${location.pathname}`, css);
         style.innerHTML = css;
     });
 }
