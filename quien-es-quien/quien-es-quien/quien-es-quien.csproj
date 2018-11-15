@@ -115,6 +115,7 @@
     <Content Include="Content\helios.obj" />
     <None Include="Content\Home\Index.scss" />
     <None Include="Content\Login\Index.scss" />
+    <Content Include="Content\song.mp3" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\HeliosSpin.js" />
     <Content Include="Scripts\OBJLoader.js" />
@@ -143,6 +144,7 @@
     <Content Include="Views\web.config" />
     <None Include="Content\Config\ListCharacteristics.scss" />
     <Content Include="Content\title.obj" />
+    <Content Include="Content\song.ogg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
