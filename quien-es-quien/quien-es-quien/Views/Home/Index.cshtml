@@ -5,11 +5,16 @@
 <div id="title"></div>
 
 <div class="links">
-    <a href="/Login/">Iniciar Sesion</a>
+    @{User user = (User)Session["user"];}
+    @if (user != null) {
+        <a href="@Url.Action("Logout", "Login")">Cerrar Sesion</a>
+    }
+    else {
+        <a href="@Url.Action("Index", "Login")">Iniciar Sesion</a>
+    }
     <a href="#">Jugar como invitado</a>
-    @{User user = (User) Session["user"];}
     @if (user != null && user.Admin) {
-        <a href="/Config/">Admin</a>
+        <a href="@Url.Action("Index", "Config")">Menu de Administrador</a>
     }
 </div>
 

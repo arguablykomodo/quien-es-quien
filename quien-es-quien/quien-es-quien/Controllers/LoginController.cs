@@ -33,5 +33,10 @@ namespace quien_es_quien.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Logout() {
+            Session["User"] = null;
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

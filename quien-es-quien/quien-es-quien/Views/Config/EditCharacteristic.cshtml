@@ -5,10 +5,10 @@
 }
 <link href="~/Content/Config/EditCharacteristic.scss" rel="stylesheet" type="text/scss" />
 
-<form action="/Config/EditCharacteristic">
+<form action="@Url.Action("EditCharacteristic")">
     <h2>Editar Caracteristica</h2>
-    <input type="text" value="@c.name" name="name"/>
-    <input type="hidden" value="@c.id" name="_id"/>
+    <input type="text" value="@c.name" name="name" />
+    <input type="hidden" value="@c.id" name="_id" />
     <input type="hidden" value="post" name="_action" />
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="Submit" />
 </form>
