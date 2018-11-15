@@ -69,13 +69,13 @@ namespace quien_es_quien.Controllers
                     return View();
                 case "post":
                     if(character.id == -1) {
-                        Models.Characteristic.CreateCharacteristic(character.name);
+                        //Models.Character.CreateCharacteristic(character.name);
                     } else {
-                        Models.Characteristic.EditCharacteristic(character.id, character.name);
+                        //Models.Character.EditCharacteristic(character.id, character.name);
                     }
                     return RedirectToAction("ListCharacters");
                 case "delete":
-                    Models.Characteristic.DeleteCharacteristic(character.id);
+                    //Models.Character.DeleteCharacteristic(character.id);
                     return RedirectToAction("ListCharacters");
             }
             throw new System.Exception("Invalid action \"" + _action + "\"");
