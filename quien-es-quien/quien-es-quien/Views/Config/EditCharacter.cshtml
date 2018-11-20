@@ -13,6 +13,22 @@
         <select>
             
         </select>
-    }
-    <input type="submit" value="Guardar" />
+    }@*
+    for i in tipos {
+
+    < select name = i.nombre >
+
+
+    for j in caracteristicas {
+            if j.tipo == i {
+
+            < option value = j.id > j.nombre </ option >
+
+
+        }
+        }
+
+    </ select >
+            }*@
+    < input type="submit" value="Guardar" />
 }
