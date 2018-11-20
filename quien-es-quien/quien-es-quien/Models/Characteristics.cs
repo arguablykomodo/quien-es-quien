@@ -8,14 +8,14 @@ namespace quien_es_quien.Models {
     public class Characteristic {
         int _id;
         string _name;
-        string _type;
+        int _type;
         string _url;
 
         public Characteristic()
         {
             _id = -1;
         }
-        public Characteristic(int id, string name, string type, string url)
+        public Characteristic(int id, string name, int type, string url)
         {
             _id = id;
             _name = name;
@@ -25,7 +25,7 @@ namespace quien_es_quien.Models {
 
         public int Id { get => _id; set => _id = value; }
         public string Name { get => _name; set => _name = value; }
-        public string Type { get => _type; set => _type = value; }
+        public int Type { get => _type; set => _type = value; }
         public string Url { get => _url; set => _url = value; }
 
         static public List<Characteristic> ListCharacteristics() {
@@ -41,7 +41,7 @@ namespace quien_es_quien.Models {
                 characteristics.Add(new Characteristic(
                     Convert.ToInt32(reader["ID"]),
                     reader["name"].ToString(),
-                    reader["type"].ToString(),
+                    Convert.ToInt32(reader["type"]),
                     reader["url"].ToString()
                 ));
             }
@@ -62,7 +62,7 @@ namespace quien_es_quien.Models {
             Characteristic characteristic = new Characteristic(
                 Convert.ToInt32(reader["ID"]),
                 reader["name"].ToString(),
-                reader["type"].ToString(),
+                Convert.ToInt32(reader["type"]),
                 reader["url"].ToString()
             );
 
@@ -118,7 +118,7 @@ namespace quien_es_quien.Models {
             while (reader.Read()) characteristics.Add(new Characteristic(
                 Convert.ToInt32(reader["ID"]),
                 reader["name"].ToString(),
-                reader["type"].ToString(),
+                Convert.ToInt32(reader["type"]),
                 reader["url"].ToString()
             ));
 

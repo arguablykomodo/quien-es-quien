@@ -7,5 +7,12 @@
     @Html.HiddenFor(x => x.Id)
     <label for="name">Nombre</label>
     @Html.TextBoxFor(x => x.Name, new { id = "name" })
+    foreach (CharacteristicType characteristicType in ViewBag.characteristicTypes)
+    {
+        <label>@characteristicType.Name</label>
+        <select>
+            
+        </select>
+    }
     <input type="submit" value="Guardar" />
 }
