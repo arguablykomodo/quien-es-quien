@@ -58,8 +58,8 @@ namespace quien_es_quien.Controllers
         }
         
         public ActionResult EditCharacter(int id, string _action) {
-            //ViewBag.characteristicTypes = CharacteristicType();
-            ViewBag.characteristicsByType = Characteristic.GetCharacteristicsGroupedByType();
+            ViewBag.characteristics = Characteristic.ListCharacteristics();
+            ViewBag.types = CharacteristicType.ListCharactersisticType();
             switch (_action) {
                 case "delete":
                     Character.DeleteCharacter(id);
