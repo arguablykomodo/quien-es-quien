@@ -19,12 +19,14 @@ namespace quien_es_quien.Controllers
 
         public ActionResult ListCharacteristics()
         {
+            ViewBag.types = CharacteristicType.ListCharactersisticType();
             ViewBag.characteristics = Characteristic.ListCharacteristics();
             return View();
         }
 
         public ActionResult EditCharacteristic(int id, string _action)
         {
+            ViewBag.types = CharacteristicType.ListCharactersisticType();
             switch (_action)
             {
                 case "delete":
@@ -73,7 +75,7 @@ namespace quien_es_quien.Controllers
             }
         }
 
-        public ActionResult SaveCharacter(Character character) {
+        public ActionResult SaveCharacter(Character character, List<int> hola) {
             if (character.Id == -1) {
                 Character.CreateCharacter(character.Name);
             }
