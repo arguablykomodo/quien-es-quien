@@ -10,23 +10,23 @@ namespace quien_es_quien.Models {
         [System.ComponentModel.DataAnnotations.Required]
         string name;
         int id;
-        Dictionary<Characteristic, string> characteristics;
+        List<Characteristic> characteristics;
 
         public Character() {
             this.name = "";
             this.id = -1;
-            this.characteristics = new Dictionary<Characteristic, string>();
+            this.characteristics = new List<Characteristic>();
         }
         public Character(string name, int id) {
             this.name = name;
             this.id = id;
-            this.characteristics = Characteristic.GetCharacterCharacteristics(id);
+            this.characteristics = Characteristic.GetCharacterCharacteristics(this);
         }
 
         [Required(ErrorMessage = "Nombre inválido.")]
         public string Name { get => name; set => name = value; }
         public int Id { get => id; set => id = value; }
-        public Dictionary<Characteristic, string> Characteristics { get => characteristics; set => characteristics = value; }
+        public List<Characteristic> Characteristics { get => characteristics; set => characteristics = value; }
 
         static public List<Character> ListCharacters() {
             List<Character> characters = new List<Character>();
