@@ -1,7 +1,19 @@
-﻿
+﻿@using quien_es_quien.Models;
+
 @{
-    ViewBag.Title = "ListCharacters";
+    List<Character> characters = ViewBag.characters;
 }
 
-<h2>ListCharacters</h2>
+<link href="~/Content/Config/ListCharacters.scss" rel="stylesheet" type="text/scss" />
 
+<h1>Personajes:</h1>
+<a href="@Url.Action("EditCharacter", new { id=-1, _action="create" })">Crear Nuevo Personaje</a>
+<ul>
+    @foreach (Character c in characters) {
+        <li>
+            <span>@c.Name</span>
+            <a href="@Url.Action("EditCharacter", new { id=c.Id, _action="edit" })">✎</a>
+            <a href="@Url.Action("EditCharacter", new { id=c.Id, _action="delete" })">🗑</a>
+        </li>
+    }
+</ul>

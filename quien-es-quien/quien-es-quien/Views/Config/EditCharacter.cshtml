@@ -1,7 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "EditCharacter";
+﻿<link href="~/Content/Config/EditCharacter.scss" rel="stylesheet" type="text/scss" />
+
+@using quien_es_quien.Models
+@model Character
+
+@using (Html.BeginForm("SaveCharacter", "Config")) {
+    @Html.HiddenFor(x => x.Id)
+    <label for="name">Nombre</label>
+    @Html.TextBoxFor(x => x.Name, new { id = "name" })
+    <input type="submit" value="Guardar" />
 }
-
-<h2>EditCharacter</h2>
-

@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using System.Collections.Generic;
+using quien_es_quien.Models;
 
 namespace quien_es_quien.Controllers
 {
@@ -53,33 +55,32 @@ namespace quien_es_quien.Controllers
         }
 
         public ActionResult ListCharacters() {
+            ViewBag.characters = Character.ListCharacters();
             return View();
         }
-        public ActionResult EditCharacter(Models.Character character,string _action) {
-            switch(_action) {
-                case "create":
-                    ViewBag.action = _action;
-                    ViewBag.name = "";
-                    ViewBag.id = -1;
-                    return View();
-                case "edit":
-                    ViewBag.action = _action;
-                    ViewBag.name = character.name;
-                    ViewBag.id = character.id;
-                    return View();
-                case "post":
-                    if(character.id == -1) {
-                        //Models.Character.CreateCharacteristic(character.name);
-                    } else {
-                        //Models.Character.EditCharacteristic(character.id, character.name);
-                    }
-                    return RedirectToAction("ListCharacters");
+        
+        public ActionResult EditCharacter(int id, string _action) {
+            switch (_action) {
                 case "delete":
-                    //Models.Character.DeleteCharacteristic(character.id);
+                    Character.DeleteCharacter(id);
+                    return RedirectToAction("ListCharacters");
+                case "edit":
+                    return View(Character.GetCharacter(id));
+                case "create":
+                    return View(new Character());
+                default:
                     return RedirectToAction("ListCharacters");
             }
-            throw new System.Exception("Invalid action \"" + _action + "\"");
         }
 
+        public ActionResult SaveCharacter(Character character) {
+            if (character.Id == -1) {
+                Character.CreateCharacter(character.Name);
+            }
+            else {
+                Character.EditCharacter(character);
+            }
+            return RedirectToAction("ListCharacters");
+        }
     }
 }
