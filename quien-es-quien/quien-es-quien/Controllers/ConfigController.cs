@@ -19,39 +19,37 @@ namespace quien_es_quien.Controllers
 
         public ActionResult ListCharacteristics()
         {
-
-            Models.DaB daB = new Models.DaB();
-
-            System.Collections.Generic.List<Models.Characteristic> characteristics = Models.Characteristic.ListCharacteristics();
-            ViewBag.characteristics = characteristics;
-
+            ViewBag.characteristics = Characteristic.ListCharacteristics();
             return View();
         }
-        public ActionResult EditCharacteristic(int _id = -1, string name = "", string _action = "")
+
+        public ActionResult EditCharacteristic(int id, string _action)
         {
-            switch(_action) {
-                case "create":
-                    ViewBag.action = _action;
-                    ViewBag.name = "";
-                    ViewBag.id = -1;
-                    return View();
-                case "edit":
-                    ViewBag.action = _action;
-                    ViewBag.name = name;
-                    ViewBag.id = _id;
-                    return View();
-                case "post":
-                    if(_id == -1) {
-                        Models.Characteristic.CreateCharacteristic(name);
-                    } else {
-                        Models.Characteristic.EditCharacteristic(_id, name);
-                    }
-                    return RedirectToAction("ListCharacteristics");
+            switch (_action)
+            {
                 case "delete":
-                    Models.Characteristic.DeleteCharacteristic(_id);
+                    Characteristic.DeleteCharacteristic(id);
+                    return RedirectToAction("ListCharacteristics");
+                case "edit":
+                    return View(Characteristic.GetCharacteristic(id));
+                case "create":
+                    return View(new Characteristic());
+                default:
                     return RedirectToAction("ListCharacteristics");
             }
-            throw new System.Exception("Invalid action \""+_action+"\"");
+        }
+
+        public ActionResult SaveCharacteristic(Characteristic characteristic)
+        {
+            if (characteristic.Id == -1)
+            {
+                Characteristic.CreateCharacteristic(characteristic);
+            }
+            else
+            {
+                Characteristic.EditCharacteristic(characteristic);
+            }
+            return RedirectToAction("ListCharacteristics");
         }
 
         public ActionResult ListCharacters() {

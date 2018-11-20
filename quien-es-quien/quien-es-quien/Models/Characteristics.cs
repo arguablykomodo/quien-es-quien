@@ -11,6 +11,10 @@ namespace quien_es_quien.Models {
         string _type;
         string _url;
 
+        public Characteristic()
+        {
+            _id = -1;
+        }
         public Characteristic(int id, string name, string type, string url)
         {
             _id = id;
@@ -45,6 +49,27 @@ namespace quien_es_quien.Models {
             return characteristics;
         }
 
+        static public Characteristic GetCharacteristic(int id)
+        {
+            SqlConnection c = new DaB().Connect();
+            SqlCommand command = c.CreateCommand();
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "sp_GetCharacteristic";
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            Characteristic characteristic = new Characteristic(
+                Convert.ToInt32(reader["ID"]),
+                reader["name"].ToString(),
+                reader["type"].ToString(),
+                reader["url"].ToString()
+            );
+
+            c.Close();
+            return characteristic;
+        }
+
         public static void CreateCharacteristic(Characteristic characteristic)
         {
             SqlConnection connection = new DaB().Connect();
@@ -70,13 +95,13 @@ namespace quien_es_quien.Models {
             command.ExecuteNonQuery();
         }
 
-        public static void DeleteCharacteristic(Characteristic characteristic)
+        public static void DeleteCharacteristic(int id)
         {
             SqlConnection connection = new DaB().Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_DeleteCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@id", characteristic.Id);
+            command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
         }
 

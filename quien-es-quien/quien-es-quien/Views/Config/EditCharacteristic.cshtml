@@ -1,14 +1,16 @@
-﻿@using quien_es_quien.Models;
+﻿<link href="~/Content/Config/EditCharacter.scss" rel="stylesheet" type="text/scss" />
 
-@{
-    Characteristic c = new Characteristic(ViewBag.name.ToString(), (int)ViewBag.id);
+@using quien_es_quien.Models
+@model Characteristic
+
+@using (Html.BeginForm("SaveCharacteristic", "Config"))
+{
+    @Html.HiddenFor(x => x.Id)
+    <label for="name">Nombre</label>
+    @Html.TextBoxFor(x => x.Name, new { id = "name" })
+    <label for="type">Tipo</label>
+    @Html.TextBoxFor(x => x.Type, new { id = "type" })
+    <label for="url">Url</label>
+    @Html.TextBoxFor(x => x.Url, new { id = "url" })
+    <input type="submit" value="Guardar" />
 }
-<link href="~/Content/Config/EditCharacteristic.scss" rel="stylesheet" type="text/scss" />
-
-<form action="@Url.Action("EditCharacteristic")">
-    <h2>Editar Caracteristica</h2>
-    <input type="text" value="@c.name" name="name" />
-    <input type="hidden" value="@c.id" name="_id" />
-    <input type="hidden" value="post" name="_action" />
-    <input type="submit" value="Submit" />
-</form>
