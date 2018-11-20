@@ -20,6 +20,7 @@ namespace quien_es_quien.Models
             _score = score;
             _bestscore = bestscore;
             _admin = admin;
+            _id = -1;
         }
 
         public User(long bitcoins, string username, int score, int bestscore, bool admin, int id)
@@ -178,6 +179,11 @@ namespace quien_es_quien.Models
                 return new User((long)reader["bitcoins"], reader["username"].ToString(), 0, (int)reader["bestscore"], reader["admin"].ToString() == "1", (int)reader["id"]);
             }
             return null;
+        }
+
+        public static bool SaveUser(User u)
+        {
+            return false;
         }
     }
 }

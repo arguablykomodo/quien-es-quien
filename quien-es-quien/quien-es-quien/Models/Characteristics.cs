@@ -6,63 +6,55 @@ using System.Web;
 
 namespace quien_es_quien.Models {
     public class Characteristic {
-        public string name;
-        public int id;
+        int _id;
+        string _name;
+        string _type;
+        string _url;
 
-        public Characteristic()
+        public Characteristic(int id, string name, string type, string url)
         {
-            this.name = "";
-            this.id = -1;
+            _id = id;
+            _name = name;
+            _type = type;
+            _url = url;
         }
 
-        public Characteristic(string name, int id) {
-            this.name = name;
-            this.id = id;
-        }
+        public int Id { get => _id; set => _id = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Type { get => _type; set => _type = value; }
+        public string Url { get => _url; set => _url = value; }
 
         static public List<Characteristic> ListCharacteristics() {
-            List<Characteristic> characteristics_list = new List<Characteristic>();
+            List<Characteristic> characteristics = new List<Characteristic>();
 
-            if (DaB.use_connection)  {
-                SqlConnection c = new DaB().Connect();
-                SqlCommand command = c.CreateCommand();
-                command.CommandText = "sp_GetCharacteristics";
+            SqlConnection c = new DaB().Connect();
+            SqlCommand command = c.CreateCommand();
+            command.CommandText = "sp_GetCharacteristics";
 
-                SqlDataReader reader = command.ExecuteReader();
+            SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read()) {
-                    characteristics_list.Add(new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"])));
-                }
-
-            } else {
-                string[] names = new string[] { "Skin-color", "Eye-color" };
-                for (int i = 0; i < names.Length; i++)
-                {
-                    Models.Characteristic c = new Characteristic(names[i], i);
-                    characteristics_list.Add(c);
-                }
+            while (reader.Read()) {
+                characteristics.Add(new Characteristic(
+                    Convert.ToInt32(reader["ID"]),
+                    reader["name"].ToString(),
+                    reader["type"].ToString(),
+                    reader["url"].ToString()
+                ));
             }
-            return characteristics_list;
+
+            return characteristics;
         }
 
-        public static Characteristic CreateCharacteristic(String s)
+        public static void CreateCharacteristic(Characteristic characteristic)
         {
             SqlConnection connection = new DaB().Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_CreateCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@name", s);
-            try
-            {
-                SqlDataReader reader = command.ExecuteReader();
-                Models.Characteristic c = new Characteristic(reader["characteristic_name"].ToString(), Convert.ToInt32(reader["ID"]));
-                return c;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Caught exception: " + ex.Message + "\nCharacteristic already exits?");
-                return null;
-            }
+            command.Parameters.AddWithValue("@name", characteristic.Name);
+            command.Parameters.AddWithValue("@type", characteristic.Type);
+            command.Parameters.AddWithValue("@url", characteristic.Url);
+            command.ExecuteNonQuery();
         }
 
         public static void EditCharacteristic(int id, String newName)

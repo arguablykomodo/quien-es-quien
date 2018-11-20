@@ -2,8 +2,16 @@
 @{
     ViewBag.Title = "EditForm";
 }
-@model quien_es_quien.Models.User;
+@using quien_es_quien.Models
+@model User
 
 <h2>EditForm</h2>
 
 <p>@Model.Username</p>
+@using (Html.BeginForm("Save", "User"))
+{ 
+    @Html.HiddenFor(x => x.id)
+    <span>Nombre de usuario: </span><span>@Html.TextBoxFor(x => x.Username)</span><br />
+    <span>Es admin: </span><span>@Html.CheckBoxFor(x=>x.Admin)</span>
+    <input type="submit" value="Grabar" />
+}
