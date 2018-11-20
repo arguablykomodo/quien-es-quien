@@ -130,6 +130,7 @@
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -158,6 +159,8 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Config\ListCharacters.cshtml" />
     <Content Include="Views\Config\EditCharacter.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\User\EditForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
