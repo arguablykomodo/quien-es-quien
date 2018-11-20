@@ -108,11 +108,9 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Content\Config\EditCharacter.scss" />
+    <Content Include="Content\Config\GenericEdit.scss" />
     <None Include="Content\Config\Index.scss" />
     <Content Include="Content\bg.jpg" />
-    <None Include="Content\Config\EditCharacteristic.scss" />
-    <None Include="Content\Config\ListCharacters.scss" />
     <Content Include="Content\Global.css" />
     <Content Include="Content\helios.obj" />
     <None Include="Content\Home\Index.scss" />
@@ -145,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <None Include="Content\Config\ListCharacteristics.scss" />
+    <None Include="Content\Config\GenericList.scss" />
     <Content Include="Content\title.obj" />
     <Content Include="Content\song.ogg" />
     <None Include="packages.config">

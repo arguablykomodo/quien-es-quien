@@ -113,6 +113,7 @@ namespace quien_es_quien.Models {
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_GetCharacterCharacteristics";
             command.Parameters.AddWithValue("@id", character.Id);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read()) characteristics.Add(new Characteristic(
                 Convert.ToInt32(reader["ID"]),
