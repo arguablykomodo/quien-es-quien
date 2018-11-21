@@ -10,7 +10,7 @@
 
     foreach (CharacteristicType type in ViewBag.types) {
         <label>@type.Name</label>
-        <select name="hola[]">
+        <select name="characteristics[]">
             @foreach (Characteristic ch in ViewBag.characteristics) {
                 if (ch.Type == type.Id) {
                     <option value="@ch.Id">@ch.Name</option>

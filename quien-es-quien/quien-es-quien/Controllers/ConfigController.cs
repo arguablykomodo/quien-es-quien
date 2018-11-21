@@ -65,13 +65,14 @@ namespace quien_es_quien.Controllers {
             }
         }
 
-        public ActionResult SaveCharacter(Character character, List<int> hola) {
+        public ActionResult SaveCharacter(Character character, List<int> characteristics) {
             if (character.Id == -1) {
                 Character.CreateCharacter(character.Name);
             }
             else {
                 Character.EditCharacter(character);
             }
+            character.SetCharacteristics(characteristics);
             return RedirectToAction("ListCharacters");
         }
     }
