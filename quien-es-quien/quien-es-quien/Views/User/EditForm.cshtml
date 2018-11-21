@@ -8,10 +8,9 @@
 <h2>EditForm</h2>
 
 <p>@Model.Username</p>
-@using (Html.BeginForm("Save", "User"))
-{ 
+@using (Html.BeginForm("Save", "User")) {
     @Html.HiddenFor(x => x.id)
     <span>Nombre de usuario: </span><span>@Html.TextBoxFor(x => x.Username)</span><br />
-    <span>Es admin: </span><span>@Html.CheckBoxFor(x=>x.Admin)</span>
+    <span>Es admin: </span><span>@Html.CheckBoxFor(x => x.Admin)</span>
     <input type="submit" value="Grabar" />
 }

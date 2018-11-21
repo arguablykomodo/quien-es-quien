@@ -7,15 +7,12 @@
     @Html.HiddenFor(x => x.Id)
     <label for="name">Nombre</label>
     @Html.TextBoxFor(x => x.Name, new { id = "name" })
-    
-    foreach (CharacteristicType type in ViewBag.types)
-    {
+
+    foreach (CharacteristicType type in ViewBag.types) {
         <label>@type.Name</label>
         <select name="hola[]">
-            @foreach (Characteristic ch in ViewBag.characteristics)
-            {
-                if (ch.Type == type.Id)
-                {
+            @foreach (Characteristic ch in ViewBag.characteristics) {
+                if (ch.Type == type.Id) {
                     <option value="@ch.Id">@ch.Name</option>
                 }
             }

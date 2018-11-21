@@ -1,34 +1,27 @@
-﻿using System.Web.Mvc;
+﻿using quien_es_quien.Models;
 using System.Collections.Generic;
-using quien_es_quien.Models;
+using System.Web.Mvc;
 
-namespace quien_es_quien.Controllers
-{
-    public class ConfigController : Controller
-    {
+namespace quien_es_quien.Controllers {
+    public class ConfigController : Controller {
         // GET: Home
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 
-        public ActionResult Characters()
-        {
+        public ActionResult Characters() {
             return View();
         }
 
-        public ActionResult ListCharacteristics()
-        {
+        public ActionResult ListCharacteristics() {
             ViewBag.types = CharacteristicType.ListCharactersisticType();
             ViewBag.characteristics = Characteristic.ListCharacteristics();
             return View();
         }
 
-        public ActionResult EditCharacteristic(int id, string _action)
-        {
+        public ActionResult EditCharacteristic(int id, string _action) {
             ViewBag.types = CharacteristicType.ListCharactersisticType();
-            switch (_action)
-            {
+            switch (_action) {
                 case "delete":
                     Characteristic.DeleteCharacteristic(id);
                     return RedirectToAction("ListCharacteristics");
@@ -41,14 +34,11 @@ namespace quien_es_quien.Controllers
             }
         }
 
-        public ActionResult SaveCharacteristic(Characteristic characteristic)
-        {
-            if (characteristic.Id == -1)
-            {
+        public ActionResult SaveCharacteristic(Characteristic characteristic) {
+            if (characteristic.Id == -1) {
                 Characteristic.CreateCharacteristic(characteristic);
             }
-            else
-            {
+            else {
                 Characteristic.EditCharacteristic(characteristic);
             }
             return RedirectToAction("ListCharacteristics");
@@ -58,7 +48,7 @@ namespace quien_es_quien.Controllers
             ViewBag.characters = Character.ListCharacters();
             return View();
         }
-        
+
         public ActionResult EditCharacter(int id, string _action) {
             ViewBag.characteristics = Characteristic.ListCharacteristics();
             ViewBag.types = CharacteristicType.ListCharactersisticType();

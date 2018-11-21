@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace quien_es_quien.Models
-{
-    public class User
-    {
+namespace quien_es_quien.Models {
+    public class User {
         private long _bitcoins;
         private readonly string _username;
         private int _score;
@@ -13,8 +11,7 @@ namespace quien_es_quien.Models
         private readonly bool _admin;
         private int _id;
 
-        public User(long bitcoins, string username, int score, int bestscore, bool admin)
-        {
+        public User(long bitcoins, string username, int score, int bestscore, bool admin) {
             _bitcoins = bitcoins;
             _username = username;
             _score = score;
@@ -23,8 +20,7 @@ namespace quien_es_quien.Models
             _id = -1;
         }
 
-        public User(long bitcoins, string username, int score, int bestscore, bool admin, int id)
-        {
+        public User(long bitcoins, string username, int score, int bestscore, bool admin, int id) {
             _bitcoins = bitcoins;
             _username = username;
             _score = score;
@@ -40,10 +36,8 @@ namespace quien_es_quien.Models
         public bool Admin => _admin;
         public int id { get => _id; set => _id = value; }
 
-        public bool UpdateBitcoins(long bitcoins)
-        {
-            if (Bitcoins - bitcoins < 0 && Bitcoins < 0)
-            {
+        public bool UpdateBitcoins(long bitcoins) {
+            if (Bitcoins - bitcoins < 0 && Bitcoins < 0) {
                 Bitcoins = 0;
             }
 
@@ -58,20 +52,17 @@ namespace quien_es_quien.Models
             command.Parameters.AddWithValue("@username", Username);
             command.Parameters.AddWithValue("@bitcoins", bitcoins);
 
-            try
-            {
+            try {
                 SqlDataReader reader = command.ExecuteReader();
                 return Convert.ToBoolean(reader["code"]);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nWrong username?");
                 return false;
             }
         }
 
-        public static User LoginUser(string username, string password)
-        {
+        public static User LoginUser(string username, string password) {
             byte[] hash = Utils.CreateMD5(password);
 
             DaB dab = new DaB();
@@ -83,15 +74,12 @@ namespace quien_es_quien.Models
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@password", hash);
 
-            try
-            {
+            try {
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
-                {
+                if (reader.Read()) {
                     int code = Convert.ToInt32(reader["code"]);
-                    if (code == 1)
-                    {
+                    if (code == 1) {
                         string uname = reader["username"].ToString();
                         long bitcoins = Convert.ToInt64(reader["bitcoins"]);
                         int bestscore = Convert.ToInt32(reader["bestscore"]);
@@ -101,15 +89,13 @@ namespace quien_es_quien.Models
                 }
                 return null;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Console.WriteLine("Caught exception: " + ex.Message + "\nWrong credentials?");
                 return null;
             }
         }
 
-        public static User RegisterUser(string username, string password, bool admin)
-        {
+        public static User RegisterUser(string username, string password, bool admin) {
             byte[] hash = Utils.CreateMD5(password);
 
             DaB dab = new DaB();
@@ -122,29 +108,24 @@ namespace quien_es_quien.Models
             command.Parameters.AddWithValue("@password", hash);
             command.Parameters.AddWithValue("@admin", Convert.ToInt32(admin));
 
-            try
-            {
+            try {
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
-                {
+                if (reader.Read()) {
                     int code = Convert.ToInt32(reader["code"]);
-                    if (code == 1)
-                    {
+                    if (code == 1) {
                         return new User(1000000, username, 0, 0, admin);
                     }
                 }
                 return null;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Console.WriteLine("Caught exception: " + ex.Message);
                 return null;
             }
         }
 
-        public static List<User> ListUsers()
-        {
+        public static List<User> ListUsers() {
             List<User> users_list = new List<User>();
             Models.DaB daB = new Models.DaB();
 
@@ -154,8 +135,7 @@ namespace quien_es_quien.Models
 
             SqlDataReader reader = command.ExecuteReader();
 
-            while (reader.Read())
-            {
+            while (reader.Read()) {
                 User one_user = new User((long)reader["bitcoins"], reader["username"].ToString(), 0, (int)reader["bestscore"], reader["admin"].ToString() == "1", (int)reader["id"]);
                 users_list.Add(one_user);
             }
@@ -163,9 +143,8 @@ namespace quien_es_quien.Models
             return users_list;
 
         }
-        
-        public static User GetUser(int id)
-        {
+
+        public static User GetUser(int id) {
             Models.DaB daB = new Models.DaB();
 
             SqlConnection c = new DaB().Connect();
@@ -174,15 +153,13 @@ namespace quien_es_quien.Models
             command.CommandType = System.Data.CommandType.StoredProcedure;//Never forget pls
             command.Parameters.AddWithValue("id", id);
             SqlDataReader reader = command.ExecuteReader();
-            if(reader.Read())
-            {
+            if (reader.Read()) {
                 return new User((long)reader["bitcoins"], reader["username"].ToString(), 0, (int)reader["bestscore"], reader["admin"].ToString() == "1", (int)reader["id"]);
             }
             return null;
         }
 
-        public static bool SaveUser(User u)
-        {
+        public static bool SaveUser(User u) {
             return false;
         }
     }

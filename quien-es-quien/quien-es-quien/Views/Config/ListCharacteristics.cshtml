@@ -11,10 +11,10 @@
 <a href="@Url.Action("EditCharacteristic", new { id=-1, _action="create" })">Crear Nueva Caracteristica</a>
 <ul>
     @foreach (Characteristic c in characteristics) {
-    <li>
-        <span>@((from t in types where t.Id == c.Type select t).Single().Name) @c.Name</span>
-        <a href="@Url.Action("EditCharacteristic", new { id=c.Id, _action="edit" })">✎</a>
-        <a href="@Url.Action("EditCharacteristic", new { id=c.Id, _action="delete" })">🗑</a>
-    </li>
+        <li>
+            <span>@((from t in types where t.Id == c.Type select t).Single().Name) @c.Name</span>
+            <a href="@Url.Action("EditCharacteristic", new { id=c.Id, _action="edit" })">✎</a>
+            <a href="@Url.Action("EditCharacteristic", new { id=c.Id, _action="delete" })">🗑</a>
+        </li>
     }
 </ul>

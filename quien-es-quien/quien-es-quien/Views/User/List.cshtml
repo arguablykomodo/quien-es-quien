@@ -5,7 +5,6 @@
 
 <h2>List</h2>
 
-@foreach(quien_es_quien.Models.User u in users)
-{
+@foreach (quien_es_quien.Models.User u in users) {
     <p><span>Nombre: @u.Username</span><span>Puntuacion Maxima: @u.Bestscore</span><a href="@Url.Action("Edit","User",new { id=u.id })">Editar</a></p>
 }

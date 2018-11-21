@@ -4,15 +4,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace quien_es_quien.Models
-{
-    public class CharacteristicType
-    {
+namespace quien_es_quien.Models {
+    public class CharacteristicType {
         int _id;
         string _name;
 
-        public CharacteristicType(int id, string name)
-        {
+        public CharacteristicType(int id, string name) {
             _id = id;
             _name = name;
         }
@@ -20,8 +17,7 @@ namespace quien_es_quien.Models
         public int Id { get => _id; set => _id = value; }
         public string Name { get => _name; set => _name = value; }
 
-        static public List<CharacteristicType> ListCharactersisticType()
-        {
+        static public List<CharacteristicType> ListCharactersisticType() {
             List<CharacteristicType> charactersisticTypes = new List<CharacteristicType>();
 
             SqlConnection c = new DaB().Connect();
@@ -30,8 +26,7 @@ namespace quien_es_quien.Models
             command.CommandText = "sp_GetCharacteristicTypes";
             SqlDataReader reader = command.ExecuteReader();
 
-            while (reader.Read())
-            {
+            while (reader.Read()) {
                 charactersisticTypes.Add(new CharacteristicType(
                     Convert.ToInt32(reader["id"]),
                     reader["name"].ToString()
