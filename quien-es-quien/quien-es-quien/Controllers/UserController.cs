@@ -1,25 +1,49 @@
-﻿using System.Web.Mvc;
+﻿using quien_es_quien.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace quien_es_quien.Controllers {
     public class UserController : Controller {
-        // GET: User
         public ActionResult List() {
-            ViewBag.user_list = quien_es_quien.Models.User.ListUsers();
+            if (Session["User"] == null || !((User)Session["User"]).Admin) {
+                return RedirectToAction("Index", "Dogcheck", new {
+                    msg = "No te hagas el vivo bro, no podes entrar aca sin admin"
+                });
+            } 
+
+            ViewBag.users = quien_es_quien.Models.User.ListUsers();
             return View();
         }
-        public ActionResult Edit(int id) {
-            if (id == -1) {
-                return View("EditForm");
-            }
 
-            Models.User user = Models.User.GetUser(id);
-            if (user == null) {
-                return View("EditForm");
+        public ActionResult Edit(int id, string _action) {
+            if (Session["User"] == null || !((User)Session["User"]).Admin) {
+                return RedirectToAction("Index", "Dogcheck", new {
+                    msg = "No te hagas el vivo bro, no podes entrar aca sin admin"
+                });
             }
-
-            return View("EditForm", user);
+            
+            switch (_action) {
+                case "delete":
+                    quien_es_quien.Models.User.DeleteUser(id);
+                    return RedirectToAction("List");
+                case "edit":
+                    return View(quien_es_quien.Models.User.GetUser(id));
+                default:
+                    return RedirectToAction("List");
+            }
         }
-        public ActionResult Save(int id) {
+
+        public ActionResult Save(User user) {
+            if (Session["User"] == null || !((User)Session["User"]).Admin) {
+                return RedirectToAction("Index", "Dogcheck", new {
+                    msg = "No te hagas el vivo bro, no podes entrar aca sin admin"
+                });
+            }
+
+            quien_es_quien.Models.User.SaveUser(user);
             return RedirectToAction("List");
         }
     }

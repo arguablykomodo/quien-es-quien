@@ -6,23 +6,16 @@ namespace quien_es_quien.Models {
     public class User {
         private long _bitcoins;
         private readonly string _username;
+        byte[] _password;
         private int _score;
         private int _bestscore;
         private readonly bool _admin;
         private int _id;
 
-        public User(long bitcoins, string username, int score, int bestscore, bool admin) {
+        public User(long bitcoins, string username, byte[] password, int score, int bestscore, bool admin, int id) {
             _bitcoins = bitcoins;
             _username = username;
-            _score = score;
-            _bestscore = bestscore;
-            _admin = admin;
-            _id = -1;
-        }
-
-        public User(long bitcoins, string username, int score, int bestscore, bool admin, int id) {
-            _bitcoins = bitcoins;
-            _username = username;
+            _password = password;
             _score = score;
             _bestscore = bestscore;
             _admin = admin;
@@ -35,6 +28,7 @@ namespace quien_es_quien.Models {
         public int Bestscore { get => _bestscore; set => _bestscore = value; }
         public bool Admin => _admin;
         public int id { get => _id; set => _id = value; }
+        public byte[] Password { get => _password; set => _password = value; }
 
         public bool UpdateBitcoins(long bitcoins) {
             if (Bitcoins - bitcoins < 0 && Bitcoins < 0) {
@@ -80,11 +74,15 @@ namespace quien_es_quien.Models {
                 if (reader.Read()) {
                     int code = Convert.ToInt32(reader["code"]);
                     if (code == 1) {
-                        string uname = reader["username"].ToString();
-                        long bitcoins = Convert.ToInt64(reader["bitcoins"]);
-                        int bestscore = Convert.ToInt32(reader["bestscore"]);
-                        bool admin = Convert.ToBoolean(reader["admin"]);
-                        return new User(bitcoins, uname, 0, bestscore, admin);
+                        return new User(
+                            Convert.ToInt64(reader["bitcoins"]),
+                            reader["username"].ToString(),
+                            (byte[])reader["password"],
+                            0,
+                            Convert.ToInt32(reader["bestscore"]),
+                            Convert.ToBoolean(reader["admin"]),
+                            Convert.ToInt32(reader["id"])
+                        );
                     }
                 }
                 return null;
@@ -114,7 +112,7 @@ namespace quien_es_quien.Models {
                 if (reader.Read()) {
                     int code = Convert.ToInt32(reader["code"]);
                     if (code == 1) {
-                        return new User(1000000, username, 0, 0, admin);
+                        return new User(1000000, username, hash, 0, 0, admin, -1);
                     }
                 }
                 return null;
@@ -136,7 +134,15 @@ namespace quien_es_quien.Models {
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read()) {
-                User one_user = new User((long)reader["bitcoins"], reader["username"].ToString(), 0, (int)reader["bestscore"], reader["admin"].ToString() == "1", (int)reader["id"]);
+                User one_user = new User(
+                    Convert.ToInt64(reader["bitcoins"]),
+                    reader["username"].ToString(),
+                    (byte[])reader["password"],
+                    0,
+                    Convert.ToInt32(reader["bestscore"]),
+                    Convert.ToBoolean(reader["admin"]),
+                    Convert.ToInt32(reader["id"])
+                );
                 users_list.Add(one_user);
             }
 
@@ -151,16 +157,43 @@ namespace quien_es_quien.Models {
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_GetUser";
             command.CommandType = System.Data.CommandType.StoredProcedure;//Never forget pls
-            command.Parameters.AddWithValue("id", id);
+            command.Parameters.AddWithValue("@id", id);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read()) {
-                return new User((long)reader["bitcoins"], reader["username"].ToString(), 0, (int)reader["bestscore"], reader["admin"].ToString() == "1", (int)reader["id"]);
+                return new User(
+                    Convert.ToInt64(reader["bitcoins"]),
+                    reader["username"].ToString(),
+                    (byte[])reader["password"],
+                    0,
+                    Convert.ToInt32(reader["bestscore"]),
+                    Convert.ToBoolean(reader["admin"]),
+                    Convert.ToInt32(reader["id"])
+                );
             }
             return null;
         }
 
-        public static bool SaveUser(User u) {
-            return false;
+        public static void SaveUser(User u) {
+            SqlConnection c = new DaB().Connect();
+            SqlCommand command = c.CreateCommand();
+            command.CommandText = "sp_DeleteUser";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@id", u.id);
+            command.Parameters.AddWithValue("@name", u.Username);
+            command.Parameters.AddWithValue("@password", u.Password);
+            command.Parameters.AddWithValue("@bestscore", u.Bestscore);
+            command.Parameters.AddWithValue("@bitcoins", u.Bitcoins);
+            command.Parameters.AddWithValue("@admin", u.Admin);
+            command.ExecuteNonQuery();
+        }
+
+        public static void DeleteUser(int id) {
+            SqlConnection c = new DaB().Connect();
+            SqlCommand command = c.CreateCommand();
+            command.CommandText = "sp_DeleteUser";
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@id", id);
+            command.ExecuteNonQuery();
         }
     }
 }

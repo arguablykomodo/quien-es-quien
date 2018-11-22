@@ -164,9 +164,9 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Character\List.cshtml" />
     <Content Include="Views\Character\Edit.cshtml" />
-    <Content Include="Views\User\List.cshtml" />
-    <Content Include="Views\User\EditForm.cshtml" />
     <Content Include="Views\Dogcheck\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,10 +1,18 @@
-﻿@{
-    ViewBag.Title = "List";
-    List<quien_es_quien.Models.User> users = ViewBag.user_list;
+﻿@using quien_es_quien.Models;
+
+@{
+    List<User> users = ViewBag.users;
 }
 
-<h2>List</h2>
+<link href="~/Content/GenericList.scss" rel="stylesheet" type="text/scss" />
 
-@foreach (quien_es_quien.Models.User u in users) {
-    <p><span>Nombre: @u.Username</span><span>Puntuacion Maxima: @u.Bestscore</span><a href="@Url.Action("Edit","User",new { id=u.id })">Editar</a></p>
-}
+<h1>Usuarios:</h1>
+<ul>
+    @foreach (User u in users) {
+        <li>
+            <span>@u.Username</span>
+            <a href="@Url.Action("Edit", new { id=u.id, _action="edit" })">✎</a>
+            <a href="@Url.Action("Edit", new { id=u.id, _action="delete" })">🗑</a>
+        </li>
+    }
+</ul>
