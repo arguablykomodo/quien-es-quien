@@ -9,7 +9,6 @@ iframe {
 body {
     margin: auto;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    height: 100vh;
     background: url(bg.jpg);
     color: #01cdfe;
     background-size: cover;
