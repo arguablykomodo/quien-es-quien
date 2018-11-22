@@ -1,0 +1,20 @@
+﻿@using quien_es_quien.Models;
+
+@{
+    List<Characteristic> characteristics = ViewBag.characteristics;
+    List<CharacteristicType> types = ViewBag.types;
+}
+
+<link href="~/Content/GenericList.scss" rel="stylesheet" type="text/scss" />
+
+<h1>Caracteristicas:</h1>
+<a href="@Url.Action("Edit", new { id=-1, _action="create" })">Crear Nueva Caracteristica</a>
+<ul>
+    @foreach (Characteristic c in characteristics) {
+        <li>
+            <span>@((from t in types where t.Id == c.Type select t).Single().Name) @c.Name</span>
+            <a href="@Url.Action("Edit", new { id=c.Id, _action="edit" })">✎</a>
+            <a href="@Url.Action("Edit", new { id=c.Id, _action="delete" })">🗑</a>
+        </li>
+    }
+</ul>

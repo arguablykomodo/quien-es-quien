@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DogCheck</title>
+    <link href="~/Content/Dogcheck.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="text" data-text="@ViewBag.msg"></div>
+    <a href="@Url.Action("Index", "Home")">Volver a la Home</a>
+    <script src="~/Scripts/Dogcheck.js"></script>
+</body>
+</html>

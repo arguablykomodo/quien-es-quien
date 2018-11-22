@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace quien_es_quien.Controllers {
     public class LoginController : Controller {
-        // GET: Login
         public ActionResult Index(bool err = false) {
             ViewBag.err = err;
             return View();

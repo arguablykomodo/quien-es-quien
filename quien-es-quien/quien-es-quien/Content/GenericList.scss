@@ -1,0 +1,66 @@
+﻿@keyframes wiggle {
+    from {
+        transform: rotate(1deg);
+    }
+
+    to {
+        transform: rotate(-1deg);
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
+body > a {
+    border: 2px dashed #00ffff;
+    background: rgba(#ff71ce, 0.5);
+    padding: .5em;
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    li {
+        @for $i from 0 to 16 {
+            &:nth-child(#{$i}) {
+                transform: rotate(#{random() * 3 - 1.5}deg)
+            }
+        }
+
+        transition: transform .1s;
+
+        &:hover {
+            transform: rotate(#{random() * 3 - 1.5}deg)
+        }
+
+        display: flex;
+        background: rgba(#ff71ce, 0.5);
+        border: 2px dashed #00ffff;
+        margin: 1rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+
+        span {
+            flex-grow: 1;
+        }
+
+        a {
+            margin: 0 1ch;
+            text-decoration: none;
+            color: aqua;
+        }
+    }
+}
