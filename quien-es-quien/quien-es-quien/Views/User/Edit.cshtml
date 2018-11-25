@@ -3,7 +3,7 @@
 @using quien_es_quien.Models
 @model User
 
-@using (Html.BeginForm("Save")) {
+@using (Html.BeginForm("Save", "User")) {
     @Html.HiddenFor(x => x.id)
     @Html.HiddenFor(x => x.Password)
 

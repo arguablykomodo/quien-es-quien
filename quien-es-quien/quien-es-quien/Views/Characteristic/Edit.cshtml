@@ -3,7 +3,7 @@
 @using quien_es_quien.Models
 @model Characteristic
 
-@using (Html.BeginForm("Save")) {
+@using (Html.BeginForm("Save", "Characteristic")) {
     @Html.HiddenFor(x => x.Id)
     <label for="name">Nombre</label>
     @Html.TextBoxFor(x => x.Name, new { id = "name" })
