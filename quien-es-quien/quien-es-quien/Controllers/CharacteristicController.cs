@@ -47,6 +47,11 @@ namespace quien_es_quien.Controllers {
                 });
             }
 
+            if (!ModelState.IsValid) {
+                ViewBag.types = CharacteristicType.ListCharactersisticType();
+                return View("Edit", characteristic);
+            }
+
             if (characteristic.Id == -1) {
                 Characteristic.CreateCharacteristic(characteristic);
             }

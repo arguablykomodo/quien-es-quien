@@ -1,4 +1,13 @@
-﻿body {
+﻿@mixin threedshadow($color, $depth) {
+    $all: ();
+
+    @for $i from 1 through $depth {
+        $all: append($all, append($i*1px $i*1px 0, $color), comma);
+        text-shadow: $all;
+    }
+}
+
+body {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -11,7 +20,7 @@ form {
     border: 1px solid rgba(#00ffff, 0.5);
     text-align: right;
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: max-content 1fr max-content;
     grid-gap: 1em;
 }
 
@@ -21,4 +30,15 @@ input[type=submit] {
 
 h2 {
     margin-top: 0;
+}
+
+.input-validation-error {
+    border: 2px dashed red;
+    background: yellow;
+}
+
+.field-validation-error {
+    color: gold;
+    font-weight: bold;
+    @include threedshadow(red, 3);
 }

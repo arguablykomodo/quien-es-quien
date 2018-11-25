@@ -43,6 +43,8 @@ namespace quien_es_quien.Controllers {
                 });
             }
 
+            if (!ModelState.IsValid) return View("Edit", user);
+
             quien_es_quien.Models.User.SaveUser(user);
             return RedirectToAction("List");
         }

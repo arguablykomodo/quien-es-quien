@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -22,8 +23,11 @@ namespace quien_es_quien.Models {
         }
 
         public int Id { get => _id; set => _id = value; }
+        [Required(ErrorMessage = "Ingrese un nombre valido")]
         public string Name { get => _name; set => _name = value; }
+        [Required(ErrorMessage = "Ingrese un tipo valido")]
         public int Type { get => _type; set => _type = value; }
+        [Required(ErrorMessage = "Ingrese una URL valida")]
         public string Url { get => _url; set => _url = value; }
 
         static public List<Characteristic> ListCharacteristics() {

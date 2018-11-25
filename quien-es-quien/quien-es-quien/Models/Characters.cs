@@ -20,7 +20,7 @@ namespace quien_es_quien.Models {
             this.id = id;
         }
 
-        [Required(ErrorMessage = "Nombre inválido.")]
+        [Required(ErrorMessage = "Ingrese un nombre valido")]
         public string Name { get => name; set => name = value; }
         public int Id { get => id; set => id = value; }
 

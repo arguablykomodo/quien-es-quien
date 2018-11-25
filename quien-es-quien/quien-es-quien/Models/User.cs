@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
 
 namespace quien_es_quien.Models {
     public class User {
         private long _bitcoins;
-        private readonly string _username;
+        private string _username;
         byte[] _password;
         private int _score;
         private int _bestscore;
-        private readonly bool _admin;
+        private bool _admin;
         private int _id;
 
+        public User() { }
         public User(long bitcoins, string username, byte[] password, int score, int bestscore, bool admin, int id) {
             _bitcoins = bitcoins;
             _username = username;
@@ -22,10 +24,16 @@ namespace quien_es_quien.Models {
             _id = id;
         }
 
+        [Required(ErrorMessage = "Ingrese numero valido de bitcoins")]
+        [Range(0, double.PositiveInfinity, ErrorMessage = "Tiene que haber un numero positivo de bitcoins")]
         public long Bitcoins { get => _bitcoins; set => _bitcoins = value; }
-        public string Username => _username;
+        [Required(ErrorMessage = "Ingrese nombre valido")]
+        public string Username { get => _username; set => _username = value; }
         public int Score { get => _score; set => _score = value; }
+        [Required(ErrorMessage = "Ingrese puntaje valido")]
+        [Range(0, double.PositiveInfinity, ErrorMessage = "El puntaje debe ser positivo")]
         public int Bestscore { get => _bestscore; set => _bestscore = value; }
+        [Required]
         public bool Admin => _admin;
         public int id { get => _id; set => _id = value; }
         public byte[] Password { get => _password; set => _password = value; }
@@ -176,7 +184,7 @@ namespace quien_es_quien.Models {
         public static void SaveUser(User u) {
             SqlConnection c = new DaB().Connect();
             SqlCommand command = c.CreateCommand();
-            command.CommandText = "sp_DeleteUser";
+            command.CommandText = "sp_EditUser";
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@id", u.id);
             command.Parameters.AddWithValue("@name", u.Username);

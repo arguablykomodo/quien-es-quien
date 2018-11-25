@@ -5,11 +5,18 @@
 
 @using (Html.BeginForm("Save", "Characteristic")) {
     @Html.HiddenFor(x => x.Id)
+
     <label for="name">Nombre</label>
     @Html.TextBoxFor(x => x.Name, new { id = "name" })
+    @Html.ValidationMessageFor(x => x.Name)
+
     <label for="type">Tipo</label>
     @Html.DropDownListFor(x => x.Type, new SelectList(ViewBag.types, "Id", "Name"), new { id = "type" })
+    @Html.ValidationMessageFor(x => x.Type)
+
     <label for="url">Url</label>
     @Html.TextBoxFor(x => x.Url, new { id = "url" })
+    @Html.ValidationMessageFor(x => x.Url)
+
     <input type="submit" value="Guardar" />
 }

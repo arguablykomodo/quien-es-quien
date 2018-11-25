@@ -9,15 +9,19 @@
 
     <label for="name">Nombre</label>
     @Html.TextBoxFor(x => x.Username, new { id = "name" })
+    @Html.ValidationMessageFor(x => x.Username)
 
     <label for="bestscore">Mejor Puntaje:</label>
     @Html.TextBoxFor(x => x.Bestscore, new { type = "number", id = "bestscore" })
+    @Html.ValidationMessageFor(x => x.Bestscore)
 
     <label for="bitcoins">Bitcoins:</label>
     @Html.TextBoxFor(x => x.Bitcoins, new { type = "number", id = "bitcoins" })
+    @Html.ValidationMessageFor(x => x.Bitcoins)
 
     <label for="admin">Admin:</label>
     @Html.CheckBoxFor(x => x.Admin, new { id = "admin" })
+    @Html.ValidationMessageFor(x => x.Admin)
 
     <input type="submit" value="Guardar" />
 }
