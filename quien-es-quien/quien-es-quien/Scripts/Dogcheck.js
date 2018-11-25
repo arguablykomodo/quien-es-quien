@@ -8,7 +8,7 @@ function letter() {
     if (i >= text.length) {
         return;
     }
-    setTimeout(letter, 100)
+    setTimeout(letter, text[i-1] === "," ? 200 : 50)
 }
 
 letter();
