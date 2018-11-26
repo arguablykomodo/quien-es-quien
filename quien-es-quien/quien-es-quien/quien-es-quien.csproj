@@ -141,11 +141,16 @@
     <None Include="Content\Home\Index.scss" />
     <None Include="Content\Login\Index.scss" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Character.js" />
     <Content Include="Scripts\Dogcheck.js" />
     <Content Include="Scripts\HeliosSpin.js" />
+    <Content Include="Scripts\MTLLoader.js" />
     <Content Include="Scripts\OBJLoader.js" />
+    <Content Include="Scripts\sass.js" />
     <Content Include="Scripts\SassCache.js" />
+    <Content Include="Scripts\three.min.js" />
     <Content Include="Scripts\TitleSpin.js" />
+    <Content Include="Scripts\worker.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
