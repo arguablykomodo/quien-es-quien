@@ -15,16 +15,13 @@ new THREE.MTLLoader()
     .setPath("../Content/CharacterModels/")
     .load("materials.mtl", function (materials) {
         materials.preload();
-        obj.setMaterials(materials);
+        console.log(materials);
+        obj.setMaterials(materials.materials);
         for (const el of document.querySelectorAll("select")) {
             const path = el.selectedOptions[0].getAttribute("data-path");
 
             obj.load("../Content/CharacterModels/" + path, function (event) {
                 const object = event.detail.loaderRootNode;
-                object.position.x = 0;
-                object.position.y = 0;
-                object.position.z = 0;
-                console.log(object)
                 models.push(object);
                 scene.add(object);
             });
@@ -37,8 +34,10 @@ renderer.setSize(250, 300);
 document.getElementById("helios").appendChild(renderer.domElement);
 
 let speed = 0;
+let otherSpeed = 0;
 document.addEventListener("mousemove", e => {
     speed += e.movementX;
+    otherSpeed += e.movementY;
 });
 
 function animate() {
@@ -47,7 +46,10 @@ function animate() {
     renderer.render(scene, camera);
     for (const model of models) {
         model.rotation.y += 0.001 + speed / 1000;
+        model.rotation.x += otherSpeed / 1000;
+        model.rotation.x *= 0.95;
     }
     speed *= 0.9;
+    otherSpeed *= 0.9;
 }
 animate();
