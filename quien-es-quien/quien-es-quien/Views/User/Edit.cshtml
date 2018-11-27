@@ -3,7 +3,8 @@
 @using quien_es_quien.Models
 @model User
 
-@using (Html.BeginForm("Save", "User")) {
+@using (Html.BeginForm("Save", "User"))
+{
     @Html.HiddenFor(x => x.id)
     @Html.HiddenFor(x => x.Password)
 
@@ -20,8 +21,8 @@
     @Html.ValidationMessageFor(x => x.Bitcoins)
 
     <label for="admin">Admin:</label>
-    @Html.CheckBoxFor(x => x.Admin, new { id = "admin" })
-    @Html.ValidationMessageFor(x => x.Admin)
+    @Html.CheckBoxFor(x => x.Admin, new { id = "admin", name = "admin" })
+    //@Html.ValidationMessageFor(x => x.Admin)
 
     <input type="submit" value="Guardar" />
 }
