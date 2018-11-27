@@ -13,9 +13,18 @@
     foreach (CharacteristicType type in ViewBag.types) {
         <label>@type.Name</label>
         <select name="characteristics[]">
-            @foreach (Characteristic ch in ViewBag.characteristics) {
-                if (ch.Type == type.Id) {
-                    <option value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
+            @foreach (Characteristic ch in ViewBag.characteristics)
+            {
+                if (ch.Type == type.Id)
+                {
+                    if (Model.Characteristics.Contains(ch.Id))
+                    {
+                        <option selected value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
+                    }
                 }
             }
         </select>

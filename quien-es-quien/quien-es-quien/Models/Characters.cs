@@ -2,29 +2,51 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
-namespace quien_es_quien.Models {
-    public class Character {
+namespace quien_es_quien.Models
+{
+    public class Character
+    {
         [System.ComponentModel.DataAnnotations.Required]
-        private string name;
-        private int id;
+        private string _name;
+        private int _id;
+        private List<int> _characteristics;
 
-        public Character() {
-            name = "";
-            id = -1;
+        public Character()
+        {
+            _name = "";
+            _id = -1;
         }
-        public Character(string name, int id) {
-            this.name = name;
-            this.id = id;
+        public Character(string name, int id)
+        {
+            this._name = name;
+            this._id = id;
+            _characteristics = new List<int>();
+            if (id != -1)
+            {
+                SqlConnection c = new DaB().Connect();
+                SqlCommand command = c.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id",id);
+                command.CommandText = "sp_GetCharacterCharacteristics";
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    _characteristics.Add(Convert.ToInt32(reader["id"]));
+                }
+
+                c.Close();
+            }
         }
 
         [Required(ErrorMessage = "Ingrese un nombre valido")]
-        public string Name { get => name; set => name = value; }
-        public int Id { get => id; set => id = value; }
+        public string Name { get => _name; set => _name = value; }
+        public int Id { get => _id; set => _id = value; }
+        public List<int> Characteristics { get => _characteristics; set => _characteristics = value; }
 
-        public static List<Character> ListCharacters() {
+        public static List<Character> ListCharacters()
+        {
             List<Character> characters = new List<Character>();
 
             SqlConnection c = new DaB().Connect();
@@ -33,7 +55,8 @@ namespace quien_es_quien.Models {
             command.CommandText = "sp_ListCharacters";
             SqlDataReader reader = command.ExecuteReader();
 
-            while (reader.Read()) {
+            while (reader.Read())
+            {
                 characters.Add(new Character(
                     reader["name"].ToString(),
                     Convert.ToInt32(reader["ID"])
@@ -44,7 +67,8 @@ namespace quien_es_quien.Models {
             return characters;
         }
 
-        public static Character GetCharacter(int id) {
+        public static Character GetCharacter(int id)
+        {
             SqlConnection c = new DaB().Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -62,7 +86,8 @@ namespace quien_es_quien.Models {
             return character;
         }
 
-        public static void CreateCharacter(string name) {
+        public static void CreateCharacter(string name)
+        {
             SqlConnection c = new DaB().Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -72,18 +97,20 @@ namespace quien_es_quien.Models {
             c.Close();
         }
 
-        public static void EditCharacter(Character character) {
+        public static void EditCharacter(Character character)
+        {
             SqlConnection c = new DaB().Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = "sp_EditCharacter";
-            command.Parameters.AddWithValue("@ID", character.id);
-            command.Parameters.AddWithValue("@name", character.name);
+            command.Parameters.AddWithValue("@ID", character._id);
+            command.Parameters.AddWithValue("@name", character._name);
             SqlDataReader reader = command.ExecuteReader();
             c.Close();
         }
 
-        public static void DeleteCharacter(int id) {
+        public static void DeleteCharacter(int id)
+        {
             SqlConnection c = new DaB().Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -93,22 +120,24 @@ namespace quien_es_quien.Models {
             c.Close();
         }
 
-        public void SetCharacteristics(List<int> characteristics) {
+        public void SetCharacteristics(List<int> characteristics)
+        {
             // First clear characteristics
             SqlConnection c = new DaB().Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = "sp_ClearCharacteristics";
-            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@id", _id);
             command.ExecuteNonQuery();
-            
+
             // Then add new ones
-            foreach (int id in characteristics) {
+            foreach (int id in characteristics)
+            {
                 System.Diagnostics.Debug.Print(id.ToString());
                 SqlCommand command2 = c.CreateCommand();
                 command2.CommandType = System.Data.CommandType.StoredProcedure;
                 command2.CommandText = "sp_AddCharacterCharacteristic";
-                command2.Parameters.AddWithValue("@characterid", this.id);
+                command2.Parameters.AddWithValue("@characterid", this._id);
                 command2.Parameters.AddWithValue("@characteristicid", id);
                 command2.ExecuteNonQuery();
             }
