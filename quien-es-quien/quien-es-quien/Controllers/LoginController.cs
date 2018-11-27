@@ -26,7 +26,7 @@ namespace quien_es_quien.Controllers {
         public ActionResult Register() => View();
         public ActionResult RegisterUser(string user, string pass) {
             var dab = new Models.DaB();
-            Models.User.RegisterUser(user, pass, true);
+            Models.User.RegisterUser(user, pass, false);
 
             return RedirectToAction("Index");
         }

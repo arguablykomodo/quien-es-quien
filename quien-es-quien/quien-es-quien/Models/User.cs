@@ -34,7 +34,10 @@ namespace quien_es_quien.Models {
         [Range(0, double.PositiveInfinity, ErrorMessage = "El puntaje debe ser positivo")]
         public int Bestscore { get => _bestscore; set => _bestscore = value; }
         [Required]
-        public bool Admin => _admin;
+        public bool Admin {
+            get { return _admin; }
+            set { _admin = value; }
+        }
         public int id { get => _id; set => _id = value; }
         public byte[] Password { get => _password; set => _password = value; }
 
