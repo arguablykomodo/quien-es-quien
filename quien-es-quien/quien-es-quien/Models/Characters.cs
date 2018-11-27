@@ -21,6 +21,7 @@ namespace quien_es_quien.Models
         {
             this._name = name;
             this._id = id;
+            _characteristics = new List<int>();
             if (id != -1)
             {
                 SqlConnection c = new DaB().Connect();
