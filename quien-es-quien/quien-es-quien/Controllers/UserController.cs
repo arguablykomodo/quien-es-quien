@@ -12,7 +12,7 @@ namespace quien_es_quien.Controllers {
                 return RedirectToAction("Index", "Dogcheck", new {
                     msg = "No te hagas el vivo bro, no podes entrar aca sin admin"
                 });
-            } 
+            }
 
             ViewBag.users = quien_es_quien.Models.User.ListUsers();
             return View();

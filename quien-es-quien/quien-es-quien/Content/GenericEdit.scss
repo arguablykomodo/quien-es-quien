@@ -24,8 +24,8 @@ form {
     grid-gap: 1em;
 }
 
-input[type=submit] {
-    grid-column: 1 / 3;
+input[type=submit], #helios {
+    grid-column: 1 / 4;
 }
 
 h2 {
