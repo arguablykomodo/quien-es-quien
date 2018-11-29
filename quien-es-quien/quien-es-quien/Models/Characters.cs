@@ -16,6 +16,7 @@ namespace quien_es_quien.Models
         {
             _name = "";
             _id = -1;
+            _characteristics = new List<int>();
         }
         public Character(string name, int id)
         {
