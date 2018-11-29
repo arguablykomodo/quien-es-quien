@@ -17,8 +17,6 @@ namespace quien_es_quien.Models
             _name = "";
             _id = -1;
             _characteristics = new List<int>();
-            for (int i = 0; i < 4; i++) // 4 is hard-coded, should be number of characteristics
-                _characteristics.Add(1);
         }
         public Character(string name, int id)
         {
