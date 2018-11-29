@@ -9,23 +9,33 @@ scene.add(ambientLight);
 const pointLight = new THREE.PointLight(0xdddddd, 0.8);
 camera.add(pointLight);
 
+const root = new THREE.Object3D();
+scene.add(root);
 const models = [];
-const obj = new THREE.OBJLoader2();
+
+function setModel(i, el, materials) {
+    const path = el.selectedOptions[0].getAttribute("data-path");
+    const obj = new THREE.OBJLoader2();
+    obj.setLogging(false);
+    obj.setMaterials(materials);
+    obj.load("../Content/CharacterModels/" + path, e => {
+        console.log(e);
+        const object = e.detail.loaderRootNode;
+        const oldObject = models[i];
+        if (oldObject) root.remove(oldObject);
+        root.add(object);
+        models[i] = object;
+    })
+}
+
 new THREE.MTLLoader()
     .setPath("../Content/CharacterModels/")
     .load("materials.mtl", function (materials) {
         materials.preload();
-        console.log(materials);
-        obj.setMaterials(materials.materials);
-        for (const el of document.querySelectorAll("select")) {
-            const path = el.selectedOptions[0].getAttribute("data-path");
-
-            obj.load("../Content/CharacterModels/" + path, function (event) {
-                const object = event.detail.loaderRootNode;
-                models.push(object);
-                scene.add(object);
-            });
-        }
+        document.querySelectorAll("select").forEach((el, i) => {
+            setModel(i, el, materials.materials);
+            el.addEventListener("change", () => setModel(i, el, materials.materials))
+        });
     })
 
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -44,11 +54,10 @@ function animate() {
     requestAnimationFrame(animate);
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
-    for (const model of models) {
-        model.rotation.y += 0.001 + speed / 1000;
-        model.rotation.x += otherSpeed / 1000;
-        model.rotation.x *= 0.95;
-    }
+    root.rotation.y += speed / 1000;
+    root.rotation.y *= 0.975;
+    root.rotation.x += otherSpeed / 1000;
+    root.rotation.x *= 0.975;
     speed *= 0.9;
     otherSpeed *= 0.9;
 }

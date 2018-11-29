@@ -139,6 +139,7 @@
     <Content Include="Scripts\OBJLoader2.min.js" />
     <Content Include="Scripts\sass.js" />
     <Content Include="Scripts\SassCache.js" />
+    <Content Include="Scripts\songResume.js" />
     <Content Include="Scripts\three.min.js" />
     <Content Include="Scripts\TitleSpin.js" />
     <Content Include="Scripts\worker.js" />
