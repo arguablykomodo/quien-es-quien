@@ -9,7 +9,7 @@ characteristics = 3
 output = "SET IDENTITY_INSERT Characters ON\n"
 indexes = [0] * types
 id = 0
-for c in range(types**characteristics):
+for c in range(types**characteristics-1):
     output += "INSERT INTO Characters (ID, name) VALUES(" + str(id) + ", '" + sus[int(random.random()*len(sus))] + " " + adj[int(random.random()*len(adj))] + "')\n"
     for i in range(len(indexes)):
         indexes[i] += 1

@@ -18,27 +18,12 @@ namespace quien_es_quien.Models
             _id = -1;
             _characteristics = new List<int>();
         }
+
         public Character(string name, int id)
         {
             this._name = name;
             this._id = id;
             _characteristics = new List<int>();
-            if (id != -1)
-            {
-                SqlConnection c = new DaB().Connect();
-                SqlCommand command = c.CreateCommand();
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id",id);
-                command.CommandText = "sp_GetCharacterCharacteristics";
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    _characteristics.Add(Convert.ToInt32(reader["id"]));
-                }
-
-                c.Close();
-            }
         }
 
         [Required(ErrorMessage = "Ingrese un nombre valido")]
@@ -77,13 +62,24 @@ namespace quien_es_quien.Models
             command.Parameters.AddWithValue("@id", id);
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
-
             Character character = new Character(
                 reader["name"].ToString(),
                 Convert.ToInt32(reader["ID"])
             );
-
             c.Close();
+
+            SqlConnection c2 = new DaB().Connect();
+            SqlCommand command2 = c2.CreateCommand();
+            command2.CommandType = System.Data.CommandType.StoredProcedure;
+            command2.Parameters.AddWithValue("@id", id);
+            command2.CommandText = "sp_GetCharacterCharacteristics";
+            SqlDataReader reader2 = command2.ExecuteReader();
+
+            while (reader2.Read()) {
+                character.Characteristics.Add(Convert.ToInt32(reader2["id"]));
+            }
+            c2.Close();
+
             return character;
         }
 
