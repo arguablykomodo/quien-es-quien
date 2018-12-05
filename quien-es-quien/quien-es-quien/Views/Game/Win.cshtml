@@ -1,0 +1,10 @@
+﻿@using quien_es_quien.Models;
+@{
+    ViewBag.Title = "Win";
+
+    var secretCharacter = (Character)Session["secretCharacter"];
+}
+
+<h2>Win</h2>
+
+<p>Tu personaje era @secretCharacter.Name</p>
