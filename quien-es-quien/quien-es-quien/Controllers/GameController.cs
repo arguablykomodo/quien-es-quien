@@ -34,7 +34,7 @@ namespace quien_es_quien.Controllers
 
             if (Session["User"] != null)
             {
-                ((User)Session["User"]).Bitcoins = ((User)Session["User"]).Bitcoins - 1000;
+                ((User)Session["User"]).UpdateBitcoins(-1000);
                 if(((User)Session["User"]).Bitcoins <= 0)
                 {
                     //No more questions left.
