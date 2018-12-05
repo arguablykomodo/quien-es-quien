@@ -1,6 +1,8 @@
 ﻿@using quien_es_quien.Models;
+@{ var questionsAsked = Session["questionsAsked"] as List<int>;}
 
 <div style="display: none" id="characters">
+
     @foreach (Character c in ViewBag.characters) {
         <character data-name="@c.Name">
             @foreach (Characteristic ch in c.Characteristics) {

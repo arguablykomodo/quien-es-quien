@@ -8,7 +8,7 @@ namespace quien_es_quien.Controllers {
         public ActionResult Index() {
             List<Character> remainingCharacters = Character.ListCharactersDeep();
             Session["remainingCharacters"] = remainingCharacters;
-
+            Session["questionsAsked"] = new List<int>();
 
             System.Random random = new System.Random();
             int i = random.Next();
@@ -20,6 +20,7 @@ namespace quien_es_quien.Controllers {
             ViewBag.characters = Session["remainingCharacters"];
             ViewBag.characteristics = Characteristic.ListCharacteristics();
             ViewBag.types = CharacteristicType.ListCharactersisticType();
+
             return View("Play");
         }
 
@@ -44,13 +45,6 @@ namespace quien_es_quien.Controllers {
             for (int i = 0; i < secretCharacter.Characteristics.Count; i++) {
                 if (secretCharacter.Characteristics[i].Type == type) {
                     bool hasIt = secretCharacter.Characteristics[i].Id == characteristic;
-                    if (hasIt) {
-                        Debug.Print("Secret character has it");
-
-                    }
-                    else {
-                        Debug.Print("Secret character does not has it");
-                    }
                     foreach (Character character in remainingCharacters) {
                         if ((character.Characteristics[i].Id == characteristic) == hasIt) {
                             newRemainingCharacters.Add(character);
@@ -59,10 +53,22 @@ namespace quien_es_quien.Controllers {
                     break;
                 }
             }
+
+            if (newRemainingCharacters.Count == 1) {
+                return RedirectToAction("Win");
+            }
+
             Session["remainingCharacters"] = newRemainingCharacters;
+            ((List<int>)Session["questionsAsked"]).Add(characteristic);
+
             ViewBag.characters = newRemainingCharacters;
             ViewBag.characteristics = Characteristic.ListCharacteristics();
             ViewBag.types = CharacteristicType.ListCharactersisticType();
+
+            return View();
+        }
+
+        public ActionResult Win() {
             return View();
         }
     }
