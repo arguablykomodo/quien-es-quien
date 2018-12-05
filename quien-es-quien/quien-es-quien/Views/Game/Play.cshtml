@@ -2,7 +2,7 @@
 
 <div style="display: none" id="characters">
     @foreach (Character c in ViewBag.characters) {
-        <character>
+        <character data-name="@c.Name">
             @foreach (Characteristic ch in c.Characteristics) {
                 <model>@ch.Url</model>
             }
@@ -12,27 +12,28 @@
 
 <link href="~/Content/Game/Index.scss" rel="stylesheet" type="text/scss" />
 
+<main>
+    <h1>Juego</h1>
+    <form id="question" action="/Game/Play">
+        <span>Tiene</span>
+        <select name="type">
+            @foreach (CharacteristicType t in ViewBag.types) {
+                <option value="@t.Id">@t.Name</option>
+            }
+        </select>
+        <select name="characteristic">
+            @foreach (Characteristic c in ViewBag.characteristics) {
+                <option data-type="@c.Type" value="@c.Id">@c.Name</option>
+            }
+        </select>
+        <span>?</span>
+        <input type="submit" value="Preguntar" />
+    </form>
+</main>
 <div id="models"></div>
-
-<h1>Juego</h1>
-<form id="question" action="/Game/Play">
-    <span>Tiene</span>
-    <select name="type">
-        @foreach (CharacteristicType t in ViewBag.types) {
-            <option value="@t.Id">@t.Name</option>
-        }
-    </select>
-    <select name="characteristic">
-        @foreach (Characteristic c in ViewBag.characteristics) {
-            <option data-type="@c.Type" value="@c.Id">@c.Name</option>
-        }
-    </select>
-    <span>?</span>
-    <input type="submit" value="Preguntar" />
-</form>
 
 <script src="~/Scripts/three.min.js"></script>
 <script src="~/Scripts/LoaderSupport.js"></script>
 <script src="~/Scripts/MTLLoader.js"></script>
 <script src="~/Scripts/OBJLoader2.min.js"></script>
-<script async src="~/Scripts/Game.js"></script>
+<script src="~/Scripts/Game.js"></script>
