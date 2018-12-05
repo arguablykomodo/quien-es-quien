@@ -8,13 +8,13 @@
     @{User user = (User)Session["user"];}
     @if (user != null) {
         <a href="@Url.Action("Logout", "Login")">Cerrar Sesion</a>
-        <a href="#">Jugar</a>
+        <a href="@Url.Action("Index","Game")">Jugar</a>
         if (user.Admin) {
             <a href="@Url.Action("Index", "Admin")">Menu de Administrador</a>
         }
     } else {
         <a href="@Url.Action("Index", "Login")">Iniciar Sesion</a>
-        <a href="#">Jugar como invitado</a>
+        <a href="@Url.Action("Index","Game")">Jugar como invitado</a>
     }
 </div>
 
