@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Mvc;
 
-namespace quien_es_quien.Controllers
-{
-    public class GameController : Controller
-    {
-        public ActionResult Index()
-        {
+namespace quien_es_quien.Controllers {
+    public class GameController : Controller {
+        public ActionResult Index() {
             List<Character> remainingCharacters = Character.ListCharactersDeep();
             Session["remainingCharacters"] = remainingCharacters;
             Session["questionsAsked"] = new List<int>();
@@ -37,38 +34,31 @@ namespace quien_es_quien.Controllers
             return View("Play");
         }
 
-        public ActionResult Play(int type = -1, int characteristic = -1)
-        {
+        public ActionResult Play(int type = -1, int characteristic = -1) {
             List<Character> remainingCharacters = Session["remainingCharacters"] as List<Character>;
             List<Character> newRemainingCharacters = new List<Character>();
             Character secretCharacter = Session["secretCharacter"] as Character;
 
-            if (Session["User"] != null)
-            {
+            if (Session["User"] != null) {
                 ((User)Session["User"]).UpdateBitcoins(-1000);
-                if (((User)Session["User"]).Bitcoins <= 0)
-                {
+
+                if (((User)Session["User"]).Bitcoins <= 0) {
                     return RedirectToAction("Lose");
                 }
             }
-            else
-            {
+            else {
                 Session["GuestBitcoins"] = ((int)Session["GuestBitcoins"]) - 1000;
-                if (((int)Session["GuestBitcoins"]) <= 0)
-                {
+
+                if (((int)Session["GuestBitcoins"]) <= 0) {
                     return RedirectToAction("Lose");
                 }
             }
 
-            for (int i = 0; i < secretCharacter.Characteristics.Count; i++)
-            {
-                if (secretCharacter.Characteristics[i].Type == type)
-                {
+            for (int i = 0; i < secretCharacter.Characteristics.Count; i++) {
+                if (secretCharacter.Characteristics[i].Type == type) {
                     bool hasIt = secretCharacter.Characteristics[i].Id == characteristic;
-                    foreach (Character character in remainingCharacters)
-                    {
-                        if ((character.Characteristics[i].Id == characteristic) == hasIt)
-                        {
+                    foreach (Character character in remainingCharacters) {
+                        if ((character.Characteristics[i].Id == characteristic) == hasIt) {
                             newRemainingCharacters.Add(character);
                         }
                     }
@@ -76,8 +66,8 @@ namespace quien_es_quien.Controllers
                 }
             }
 
-            if (newRemainingCharacters.Count == 1)
-            {
+
+            if (newRemainingCharacters.Count == 1) {
                 return RedirectToAction("Win");
             }
 
@@ -105,7 +95,7 @@ namespace quien_es_quien.Controllers
             }
             ViewBag.Bitcoins = bitcoinsRemaining;
             ViewBag.SecretCharacter = Session["secretCharacter"];
-
+            
             return View();
         }
     }

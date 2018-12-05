@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             font: font,
             size: 10,
             height: 5,
-            curveSegments: 2
+            curveSegments: 1
         });
         THREE.GeometryUtils.center(geometry);
         const text = new THREE.Mesh(geometry, textmaterial);
