@@ -3,9 +3,10 @@
     ViewBag.Title = "Win";
 
     var bitcoinsRemaining = (int)ViewBag.bitcoins;
-    var secretCharacter = (Character)ViewBag.secretCharacter;
+    var SecretCharacter = (Character)ViewBag.SecretCharacter;
+    var SpentBitcoins = (int)ViewBag.SpentBitcoins;
 }
 
 <h2>Win</h2>
 
-<p>Tu personaje era @secretCharacter.Name, y ganaste con @bitcoinsRemaining bitcoins restantes</p>
+<p>Tu personaje era @SecretCharacter.Name, y ganaste con @bitcoinsRemaining bitcoins restantes. Tu ganancia es de @System.Math.Floor(SpentBitcoins * 1.2) bitcoins</p>

@@ -1,5 +1,5 @@
 ﻿@using quien_es_quien.Models;
-@{ var questionsAsked = Session["questionsAsked"] as List<int>;}
+@{ var QuestionsAsked = Session["QuestionsAsked"] as List<int>;}
 
 <div style="display: none" id="characters">
 
@@ -29,7 +29,7 @@
         <select name="characteristic">
             @foreach (Characteristic c in ViewBag.characteristics)
             {
-                if (@questionsAsked.Contains(c.Id))
+                if (@QuestionsAsked.Contains(c.Id))
                 {
                     <option data-type="@c.Type" value="@c.Id" style="background-color:red;">@c.Name</option>
                 }
