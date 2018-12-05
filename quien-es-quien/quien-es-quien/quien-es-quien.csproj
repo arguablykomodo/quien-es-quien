@@ -109,6 +109,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\Dogcheck.css" />
+    <None Include="Content\Game\Index.scss" />
     <Content Include="Content\GenericEdit.scss" />
     <None Include="Content\Admin\Index.scss" />
     <Content Include="Content\bg.jpg" />
@@ -132,6 +133,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Character.js" />
     <Content Include="Scripts\Dogcheck.js" />
+    <Content Include="Scripts\Game.js" />
     <Content Include="Scripts\HeliosSpin.js" />
     <Content Include="Scripts\LoaderSupport.js" />
     <Content Include="Scripts\MTLLoader.js" />
