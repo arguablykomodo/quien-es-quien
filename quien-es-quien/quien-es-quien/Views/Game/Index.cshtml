@@ -1,6 +1,18 @@
 ﻿@using quien_es_quien.Models;
 
+<div style="display: none" id="characters">
+    @foreach (Character c in ViewBag.characters) {
+        <character>
+            @foreach (Characteristic ch in c.Characteristics) {
+                <model>@ch.Url</model>
+            }
+        </character>
+    }
+</div>
+
 <link href="~/Content/Game/Index.scss" rel="stylesheet" type="text/scss" />
+
+<div id="models"></div>
 
 <h1>Juego</h1>
 <form id="question">
@@ -16,7 +28,11 @@
         }
     </select>
     <span>?</span>
-    <input type="submit" value="Preguntar"/>
+    <input type="submit" value="Preguntar" />
 </form>
 
+<script src="~/Scripts/three.min.js"></script>
+<script src="~/Scripts/LoaderSupport.js"></script>
+<script src="~/Scripts/MTLLoader.js"></script>
+<script src="~/Scripts/OBJLoader2.min.js"></script>
 <script src="~/Scripts/Game.js"></script>

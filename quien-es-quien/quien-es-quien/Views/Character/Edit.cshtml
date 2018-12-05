@@ -31,22 +31,6 @@
         @(Html.Raw("</select>"))
         <div></div>
     }
-    @*foreach (CharacteristicType type in ViewBag.types) {
-            <label>@type.Name</label>
-            <select name="characteristics[]">
-                @foreach (Characteristic ch in ViewBag.characteristics) {
-                    if (ch.Type == type.Id) {
-                        if (Model.Characteristics.Any(idk => idk.Id == ch.Id)) {
-                            <option selected value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
-                        }
-                        else {
-                            <option value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
-                        }
-                    }
-                }
-            </select>
-            <div></div>
-        }*@
     <input type="submit" value="Guardar" />
 }
 

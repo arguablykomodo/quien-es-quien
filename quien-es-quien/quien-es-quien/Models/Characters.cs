@@ -135,11 +135,19 @@ namespace quien_es_quien.Models
             while (reader.Read()) {
                 int i = ids.IndexOf(Convert.ToInt32(reader["ID"]));
                 if (i == -1) {
+                    ids.Add(Convert.ToInt32(reader["ID"]));
                     characters.Add(new Character(
                         reader["name"].ToString(),
                         Convert.ToInt32(reader["ID"])
                     ));
                     characters[characters.Count - 1].Characteristics.Add(new Characteristic(
+                        Convert.ToInt32(reader["cID"]),
+                        reader["name"].ToString(),
+                        Convert.ToInt32(reader["type"]),
+                        reader["url"].ToString()
+                    ));
+                } else {
+                    characters[i].Characteristics.Add(new Characteristic(
                         Convert.ToInt32(reader["cID"]),
                         reader["name"].ToString(),
                         Convert.ToInt32(reader["type"]),
