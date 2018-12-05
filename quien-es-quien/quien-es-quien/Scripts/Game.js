@@ -37,15 +37,16 @@ function loadModel(character, path, materials) {
     obj.setMaterials(materials);
     obj.load("../Content/CharacterModels/" + path, e => {
         const object = e.detail.loaderRootNode;
+        object.position.x = object.position.y = object.position.z = 100;
         character.add(object);
     });
 }
 
 function loadCharacter(el, materials) {
     const character = new THREE.Object3D();
-    character.xSpeed = (Math.random() - 0.5) / 50;
-    character.ySpeed = (Math.random() - 0.5) / 50;
-    character.zSpeed = (Math.random() - 0.5) / 50;
+    character.xSpeed = (Math.random() - 0.5) / 500;
+    character.ySpeed = (Math.random() - 0.5) / 500;
+    character.zSpeed = (Math.random() - 0.5) / 500;
 
     character.position.x = Math.random() * 500 - 250;
     character.position.y = Math.random() * 500 - 250;
@@ -85,7 +86,7 @@ document.addEventListener("mousemove", e => {
 
 let scaleSpeed = 0;
 document.addEventListener("wheel", e => {
-    scaleSpeed += e.deltaY > 0 ? 1 : -1;
+    scaleSpeed += e.deltaY > 0 ? -1 : 1;
     console.log(1 + scaleSpeed)
 })
 
