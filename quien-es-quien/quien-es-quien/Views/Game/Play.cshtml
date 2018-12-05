@@ -13,7 +13,7 @@
 <link href="~/Content/Game/Index.scss" rel="stylesheet" type="text/scss" />
 
 <main>
-    <h1>Juego</h1>
+    <h1>Preguntar</h1>
     <form id="question" action="/Game/Play">
         <span>Tiene</span>
         <select name="type">
@@ -28,6 +28,15 @@
         </select>
         <span>?</span>
         <input type="submit" value="Preguntar" />
+    </form>
+    <h1>Adivinar</h1>
+    <form action="/Game/Guess">
+        <select name="id">
+            @foreach (Character c in ViewBag.characters) {
+                <option value="@c.Id">@c.Name</option>
+            }
+        </select>
+        <input type="submit" value="Adivinar"/>
     </form>
 </main>
 <div id="models"></div>
