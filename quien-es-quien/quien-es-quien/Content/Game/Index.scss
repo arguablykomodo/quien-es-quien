@@ -1,17 +1,20 @@
 ﻿body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: max-content 1fr;
     height: 100vh;
 }
 
-#question {
-    position: relative;
+main {
     background: rgba(purple, 0.5);
     border: 4px dashed cyan;
     padding: 1em;
-    width: 50%;
+}
+
+h1 {
+    text-align: center;
+}
+
+#question {
     display: grid;
     grid-template-columns: max-content 1fr 1fr max-content;
     grid-gap: 1em;
@@ -22,8 +25,5 @@
 }
 
 #models {
-    z-index: -1;
-    position: fixed;
-    left: 0;
-    top: 0;
+    overflow: hidden;
 }

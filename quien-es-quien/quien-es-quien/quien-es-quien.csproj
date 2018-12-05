@@ -109,6 +109,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\Dogcheck.css" />
+    <Content Include="Content\font.typeface.json" />
     <None Include="Content\Game\Index.scss" />
     <Content Include="Content\GenericEdit.scss" />
     <None Include="Content\Admin\Index.scss" />

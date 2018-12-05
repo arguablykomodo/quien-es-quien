@@ -26,11 +26,29 @@ namespace quien_es_quien.Controllers
 
             return View("Play");
         }
+
         public ActionResult Play(int type = -1, int characteristic = -1)
         {
             List<Character> remainingCharacters = Session["remainingCharacters"] as List<Character>;
             List<Character> newRemainingCharacters = new List<Character>();
             Character secretCharacter = Session["secretCharacter"] as Character;
+
+            if (Session["User"] != null)
+            {
+                ((User)Session["User"]).UpdateBitcoins(-1000);
+                if(((User)Session["User"]).Bitcoins <= 0)
+                {
+                    //No more questions left.
+                }
+            }
+            else
+            {
+                Session["GuestBitcoins"] = ((int)Session["GuestBitcoins"]) - 1000;
+                if(((int)Session["GuestBitcoins"]) <= 0){
+                    //No more questions left.
+                }
+            }
+
             for (int i = 0; i < secretCharacter.Characteristics.Count; i++)
             {
                 if (secretCharacter.Characteristics[i].Type == type)
@@ -38,7 +56,7 @@ namespace quien_es_quien.Controllers
                     bool hasIt = secretCharacter.Characteristics[i].Id == characteristic;
                     foreach(Character character in remainingCharacters)
                     {
-                        if((character.Characteristics[i].Id==characteristic)==hasIt)
+                        if((character.Characteristics[i].Id==characteristic) == hasIt)
                         {
                             newRemainingCharacters.Add(character);
                         }
