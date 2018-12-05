@@ -25,7 +25,8 @@ namespace quien_es_quien.Models {
         }
 
         public static SqlConnection Connect() {
-            SqlConnection sql = new SqlConnection("Server=10.128.8.16;Database=QEQC01;Uid=QEQC01;Pwd=QEQC01");
+            SqlConnection sql = new SqlConnection(@"Server=DESKTOP-FBKD222\SQLEXPRESS;Database=QEQC01;Trusted_Connection=True;");
+            //SqlConnection sql = new SqlConnection("Server=10.128.8.16;Database=QEQC01;Uid=QEQC01;Pwd=QEQC01");
             sql.Open();
             return sql;
         }
