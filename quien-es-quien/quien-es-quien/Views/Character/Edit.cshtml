@@ -3,33 +3,50 @@
 @using quien_es_quien.Models
 @model Character
 
-@using (Html.BeginForm("Save", "Character")) {
+@{List<CharacteristicType> types = ViewBag.types;}
+@{List<Characteristic> characteristics = ViewBag.characteristics;}
+
+@using (Html.BeginForm("Save", "Character", FormMethod.Post)) {
     <div id="helios"></div>
     @Html.HiddenFor(x => x.Id)
     <label for="name">Nombre</label>
     @Html.TextBoxFor(x => x.Name, new { id = "name" })
     @Html.ValidationMessageFor(x => x.Name)
 
-    foreach (CharacteristicType type in ViewBag.types) {
+    for (int i = 0; i < Model.Characteristics.Count; i++) {
+        CharacteristicType type = types.Where(x => x.Id == Model.Characteristics[i].Type).First();
         <label>@type.Name</label>
-        <select name="characteristics[]">
-            @foreach (Characteristic ch in ViewBag.characteristics)
-            {
-                if (ch.Type == type.Id)
-                {
-                    if (Model.Characteristics.Contains(ch.Id))
-                    {
-                        <option selected value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
-                    }
-                }
+        @Html.HiddenFor(x => x.Characteristics[i].Name);
+        @Html.HiddenFor(x => x.Characteristics[i].Type);
+        @Html.HiddenFor(x => x.Characteristics[i].Url);
+        @Html.Raw(@Html.DropDownListFor(x => x.Characteristics[i].Id, new SelectList(new List<int>())).ToString().Replace("</select>", ""))
+        foreach (Characteristic ch in characteristics.Where(ch => ch.Type == type.Id)) {
+            if (Model.Characteristics[i].Id == ch.Id) {
+                <option data-path="@ch.Url" value="@ch.Id" selected>@ch.Name</option>
             }
-        </select>
+            else {
+                <option data-path="@ch.Url" value="@ch.Id">@ch.Name</option>
+            }
+        }
+        @(Html.Raw("</select>"))
         <div></div>
     }
+    @*foreach (CharacteristicType type in ViewBag.types) {
+            <label>@type.Name</label>
+            <select name="characteristics[]">
+                @foreach (Characteristic ch in ViewBag.characteristics) {
+                    if (ch.Type == type.Id) {
+                        if (Model.Characteristics.Any(idk => idk.Id == ch.Id)) {
+                            <option selected value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
+                        }
+                        else {
+                            <option value="@ch.Id" data-path="@ch.Url">@ch.Name</option>
+                        }
+                    }
+                }
+            </select>
+            <div></div>
+        }*@
     <input type="submit" value="Guardar" />
 }
 

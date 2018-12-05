@@ -40,7 +40,7 @@ namespace quien_es_quien.Controllers {
             }
         }
 
-        public ActionResult Save(Character character, List<int> characteristics) {
+        public ActionResult Save(Character character) {
             if (Session["User"] == null || !((User)Session["User"]).Admin) {
                 return RedirectToAction("Index", "Dogcheck", new {
                     msg = "No te hagas el vivo bro, no podes entrar aca sin admin"
@@ -59,7 +59,7 @@ namespace quien_es_quien.Controllers {
             else {
                 Character.EditCharacter(character);
             }
-            character.SetCharacteristics(characteristics);
+            character.SetCharacteristics();
             return RedirectToAction("List");
         }
     }

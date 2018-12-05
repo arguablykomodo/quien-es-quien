@@ -7,8 +7,10 @@ types = 4
 characteristics = 3
 
 output = "SET IDENTITY_INSERT Characters ON\n"
+output += "DELETE FROM Characters\n"
+output += "DELETE FROM CharactersCharacteristics\n"
 indexes = [0] * types
-id = 0
+id = 1
 for c in range(types**characteristics-1):
     output += "INSERT INTO Characters (ID, name) VALUES(" + str(id) + ", '" + sus[int(random.random()*len(sus))] + " " + adj[int(random.random()*len(adj))] + "')\n"
     for i in range(len(indexes)):
@@ -19,7 +21,7 @@ for c in range(types**characteristics-1):
         break
     i = 0
     for index in indexes:
-        output += "INSERT INTO CharactersCharacteristics VALUES(" + str(id) + ", " + str(6+3*i+index) + ")\n"
+        output += "INSERT INTO CharactersCharacteristics VALUES(" + str(id) + ", " + str(1+characteristics*i+index) + ")\n"
         i += 1
     id += 1
 

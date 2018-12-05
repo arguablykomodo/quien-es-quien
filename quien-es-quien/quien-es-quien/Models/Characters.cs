@@ -7,29 +7,29 @@ namespace quien_es_quien.Models
 {
     public class Character
     {
-        [System.ComponentModel.DataAnnotations.Required]
         private string _name;
         private int _id;
-        private List<int> _characteristics;
+        [NonSerialized]
+        private List<Characteristic> _characteristics;
 
         public Character()
         {
             _name = "";
             _id = -1;
-            _characteristics = new List<int>();
+            _characteristics = new List<Characteristic>();
         }
 
         public Character(string name, int id)
         {
             this._name = name;
             this._id = id;
-            _characteristics = new List<int>();
+            _characteristics = new List<Characteristic>();
         }
 
+        public int Id { get => _id; set => _id = value; }
+        public List<Characteristic> Characteristics { get => _characteristics; set => _characteristics = value; }
         [Required(ErrorMessage = "Ingrese un nombre valido")]
         public string Name { get => _name; set => _name = value; }
-        public int Id { get => _id; set => _id = value; }
-        public List<int> Characteristics { get => _characteristics; set => _characteristics = value; }
 
         public static List<Character> ListCharacters()
         {
@@ -76,7 +76,12 @@ namespace quien_es_quien.Models
             SqlDataReader reader2 = command2.ExecuteReader();
 
             while (reader2.Read()) {
-                character.Characteristics.Add(Convert.ToInt32(reader2["id"]));
+                character.Characteristics.Add(new Characteristic(
+                    Convert.ToInt32(reader2["ID"]),
+                    reader2["name"].ToString(),
+                    Convert.ToInt32(reader2["type"]),
+                    reader2["url"].ToString()
+                ));
             }
             c2.Close();
 
@@ -116,8 +121,38 @@ namespace quien_es_quien.Models
             SqlDataReader reader = command.ExecuteReader();
             c.Close();
         }
+        
+        public static List<Character> ListCharactersDeep() {
+            List<Character> characters = new List<Character>();
+            List<int> ids = new List<int>();
 
-        public void SetCharacteristics(List<int> characteristics)
+            SqlConnection c = Utils.Connect();
+            SqlCommand command = c.CreateCommand();
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "sp_ListCharactersDeep";
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()) {
+                int i = ids.IndexOf(Convert.ToInt32(reader["ID"]));
+                if (i == -1) {
+                    characters.Add(new Character(
+                        reader["name"].ToString(),
+                        Convert.ToInt32(reader["ID"])
+                    ));
+                    characters[characters.Count - 1].Characteristics.Add(new Characteristic(
+                        Convert.ToInt32(reader["cID"]),
+                        reader["name"].ToString(),
+                        Convert.ToInt32(reader["type"]),
+                        reader["url"].ToString()
+                    ));
+                }
+            }
+
+            c.Close();
+            return characters;
+        }
+
+        public void SetCharacteristics()
         {
             // First clear characteristics
             SqlConnection c = Utils.Connect();
@@ -128,14 +163,13 @@ namespace quien_es_quien.Models
             command.ExecuteNonQuery();
 
             // Then add new ones
-            foreach (int id in characteristics)
+            foreach (Characteristic ch in Characteristics)
             {
-                System.Diagnostics.Debug.Print(id.ToString());
                 SqlCommand command2 = c.CreateCommand();
                 command2.CommandType = System.Data.CommandType.StoredProcedure;
                 command2.CommandText = "sp_AddCharacterCharacteristic";
                 command2.Parameters.AddWithValue("@characterid", this._id);
-                command2.Parameters.AddWithValue("@characteristicid", id);
+                command2.Parameters.AddWithValue("@characteristicid", ch.Id);
                 command2.ExecuteNonQuery();
             }
 
