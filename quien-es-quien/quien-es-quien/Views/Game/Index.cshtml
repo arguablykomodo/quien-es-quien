@@ -1,1 +1,22 @@
-﻿<h2>Index</h2>
+﻿@using quien_es_quien.Models;
+
+<link href="~/Content/Game/Index.scss" rel="stylesheet" type="text/scss" />
+
+<h1>Juego</h1>
+<form id="question">
+    <span>Tiene</span>
+    <select name="type">
+        @foreach (CharacteristicType t in ViewBag.types) {
+            <option value="@t.Id">@t.Name</option>
+        }
+    </select>
+    <select name="characteristic">
+        @foreach (Characteristic c in ViewBag.characteristics) {
+            <option data-type="@c.Type" value="@c.Id">@c.Name</option>
+        }
+    </select>
+    <span>?</span>
+    <input type="submit" value="Preguntar"/>
+</form>
+
+<script src="~/Scripts/Game.js"></script>

@@ -1,0 +1,22 @@
+﻿body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#question {
+    position: relative;
+    background: rgba(purple, 0.5);
+    border: 4px dashed cyan;
+    padding: 1em;
+    width: 50%;
+    display: grid;
+    grid-template-columns: max-content 1fr 1fr max-content;
+    grid-gap: 1em;
+
+    input[type=submit] {
+        grid-column: 1 / -1;
+    }
+}
