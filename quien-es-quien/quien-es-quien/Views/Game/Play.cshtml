@@ -3,9 +3,11 @@
 
 <div style="display: none" id="characters">
 
-    @foreach (Character c in ViewBag.characters) {
+    @foreach (Character c in ViewBag.characters)
+    {
         <character data-name="@c.Name">
-            @foreach (Characteristic ch in c.Characteristics) {
+            @foreach (Characteristic ch in c.Characteristics)
+            {
                 <model>@ch.Url</model>
             }
         </character>
@@ -19,13 +21,24 @@
     <form id="question" action="/Game/Play">
         <span>Tiene</span>
         <select name="type">
-            @foreach (CharacteristicType t in ViewBag.types) {
+            @foreach (CharacteristicType t in ViewBag.types)
+            {
                 <option value="@t.Id">@t.Name</option>
             }
         </select>
         <select name="characteristic">
-            @foreach (Characteristic c in ViewBag.characteristics) {
-                <option data-type="@c.Type" value="@c.Id">@c.Name</option>
+            @foreach (Characteristic c in ViewBag.characteristics)
+            {
+                if (@questionsAsked.Contains(c.Id))
+                {
+                    <option data-type="@c.Type" value="@c.Id" style="background-color:red;">@c.Name</option>
+                }
+                else
+                {
+
+                    <option data-type="@c.Type" value="@c.Id">@c.Name</option>
+                }
+
             }
         </select>
         <span>?</span>
