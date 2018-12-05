@@ -12,7 +12,6 @@ namespace quien_es_quien.Controllers {
         }
 
         public ActionResult Login(string name, string pass) {
-            Models.DaB daB = new Models.DaB();
             var loggedUser = Models.User.LoginUser(name, pass);
             if (loggedUser == null) {
                 Session["User"] = null;
@@ -25,9 +24,7 @@ namespace quien_es_quien.Controllers {
         }
         public ActionResult Register() => View();
         public ActionResult RegisterUser(string user, string pass) {
-            var dab = new Models.DaB();
             Models.User.RegisterUser(user, pass, false);
-
             return RedirectToAction("Index");
         }
 

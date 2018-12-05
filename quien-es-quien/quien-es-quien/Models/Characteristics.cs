@@ -33,7 +33,7 @@ namespace quien_es_quien.Models {
         static public List<Characteristic> ListCharacteristics() {
             List<Characteristic> characteristics = new List<Characteristic>();
 
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_GetCharacteristics";
 
@@ -52,7 +52,7 @@ namespace quien_es_quien.Models {
         }
 
         static public Characteristic GetCharacteristic(int id) {
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = "sp_GetCharacteristic";
@@ -72,7 +72,7 @@ namespace quien_es_quien.Models {
         }
 
         public static void CreateCharacteristic(Characteristic characteristic) {
-            SqlConnection connection = new DaB().Connect();
+            SqlConnection connection = Utils.Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_CreateCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -83,7 +83,7 @@ namespace quien_es_quien.Models {
         }
 
         public static void EditCharacteristic(Characteristic characteristic) {
-            SqlConnection connection = new DaB().Connect();
+            SqlConnection connection = Utils.Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_EditCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -95,7 +95,7 @@ namespace quien_es_quien.Models {
         }
 
         public static void DeleteCharacteristic(int id) {
-            SqlConnection connection = new DaB().Connect();
+            SqlConnection connection = Utils.Connect();
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_DeleteCharacteristic";
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -106,7 +106,7 @@ namespace quien_es_quien.Models {
         public static List<Characteristic> GetCharacterCharacteristics(Character character) {
             List<Characteristic> characteristics = new List<Characteristic>();
 
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_GetCharacterCharacteristics";
             command.Parameters.AddWithValue("@id", character.Id);

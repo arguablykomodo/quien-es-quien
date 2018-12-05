@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Web;
 
 /*
@@ -21,6 +22,12 @@ namespace quien_es_quien.Models {
 
                 return hashBytes;
             }
+        }
+
+        public static SqlConnection Connect() {
+            SqlConnection sql = new SqlConnection("Server=10.128.8.16;Database=QEQC01;Uid=QEQC01;Pwd=QEQC01");
+            sql.Open();
+            return sql;
         }
     }
 }

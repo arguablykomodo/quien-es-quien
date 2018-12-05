@@ -47,9 +47,8 @@ namespace quien_es_quien.Models {
             }
 
             Bitcoins = Bitcoins + bitcoins;
-
-            DaB dab = new DaB();
-            SqlConnection connection = dab.Connect();
+            
+            SqlConnection connection = Utils.Connect();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_UpdateBitcoins";
@@ -70,8 +69,7 @@ namespace quien_es_quien.Models {
         public static User LoginUser(string username, string password) {
             byte[] hash = Utils.CreateMD5(password);
 
-            DaB dab = new DaB();
-            SqlConnection connection = dab.Connect();
+            SqlConnection connection = Utils.Connect();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_Login";
@@ -107,8 +105,7 @@ namespace quien_es_quien.Models {
         public static User RegisterUser(string username, string password, bool admin) {
             byte[] hash = Utils.CreateMD5(password);
 
-            DaB dab = new DaB();
-            SqlConnection connection = dab.Connect();
+            SqlConnection connection = Utils.Connect();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "sp_Register";
@@ -136,9 +133,8 @@ namespace quien_es_quien.Models {
 
         public static List<User> ListUsers() {
             List<User> users_list = new List<User>();
-            Models.DaB daB = new Models.DaB();
 
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_GetUsers";
 
@@ -162,9 +158,7 @@ namespace quien_es_quien.Models {
         }
 
         public static User GetUser(int id) {
-            Models.DaB daB = new Models.DaB();
-
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_GetUser";
             command.CommandType = System.Data.CommandType.StoredProcedure;//Never forget pls
@@ -185,7 +179,7 @@ namespace quien_es_quien.Models {
         }
 
         public static void SaveUser(User u) {
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_EditUser";
             command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -199,7 +193,7 @@ namespace quien_es_quien.Models {
         }
 
         public static void DeleteUser(int id) {
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandText = "sp_DeleteUser";
             command.CommandType = System.Data.CommandType.StoredProcedure;

@@ -20,7 +20,7 @@ namespace quien_es_quien.Models {
         static public List<CharacteristicType> ListCharactersisticType() {
             List<CharacteristicType> charactersisticTypes = new List<CharacteristicType>();
 
-            SqlConnection c = new DaB().Connect();
+            SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = "sp_GetCharacteristicTypes";
