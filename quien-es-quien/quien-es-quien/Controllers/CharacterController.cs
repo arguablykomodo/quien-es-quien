@@ -54,7 +54,7 @@ namespace quien_es_quien.Controllers {
             }
 
             if (character.Id == -1) {
-                Character.CreateCharacter(character.Name);
+                character.Id = Character.CreateCharacter(character);
             }
             else {
                 Character.EditCharacter(character);

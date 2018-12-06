@@ -28,7 +28,7 @@ namespace quien_es_quien.Controllers {
             }
 
             Session["SecretCharacter"] = RemainingCharacters[i];
-            Debug.Print("Secret character: " + RemainingCharacters[i].Id);
+            Debug.Print("Secret character: " + RemainingCharacters[i].Name);
 
             ViewBag.characters = Session["RemainingCharacters"];
             ViewBag.characteristics = Characteristic.ListCharacteristics();

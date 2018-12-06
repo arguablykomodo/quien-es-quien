@@ -16,7 +16,8 @@ namespace quien_es_quien.Models
         {
             _name = "";
             _id = -1;
-            _characteristics = new List<Characteristic>();
+            Character robado = Character.GetCharacter((new System.Random()).Next(1, 10));
+            _characteristics = robado.Characteristics;
         }
 
         public Character(string name, int id)
@@ -88,15 +89,21 @@ namespace quien_es_quien.Models
             return character;
         }
 
-        public static void CreateCharacter(string name)
+        public static int CreateCharacter(Character character)
         {
+            int id = -1;
             SqlConnection c = Utils.Connect();
             SqlCommand command = c.CreateCommand();
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = "sp_CreateCharacter";
-            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@name", character.Name);
             SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read()) {
+                id = Convert.ToInt32(reader["ID"]);
+            }
+
             c.Close();
+            return id;
         }
 
         public static void EditCharacter(Character character)
@@ -171,7 +178,7 @@ namespace quien_es_quien.Models
             command.ExecuteNonQuery();
 
             // Then add new ones
-            foreach (Characteristic ch in Characteristics)
+            foreach (Characteristic ch in _characteristics)
             {
                 SqlCommand command2 = c.CreateCommand();
                 command2.CommandType = System.Data.CommandType.StoredProcedure;
