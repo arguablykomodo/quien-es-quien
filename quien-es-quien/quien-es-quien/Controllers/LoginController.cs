@@ -22,8 +22,14 @@ namespace quien_es_quien.Controllers {
                 return RedirectToAction("Index", "Home");
             }
         }
-        public ActionResult Register() => View();
+        public ActionResult Register(bool err = false) {
+            ViewBag.err = err;
+            return View();
+        }
         public ActionResult RegisterUser(string user, string pass) {
+            if (user == "" || pass == "" || user == null || pass == null) {
+                return RedirectToAction("Register", "Login", new { err = true });
+            }
             Models.User.RegisterUser(user, pass, false);
             return RedirectToAction("Index");
         }

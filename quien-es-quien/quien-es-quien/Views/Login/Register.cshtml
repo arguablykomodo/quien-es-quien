@@ -1,6 +1,9 @@
 ﻿<link href="~/Content/Login/Index.scss" rel="stylesheet" type="text/scss" />
 <form method="post" action="@Url.Action("RegisterUser")">
     <h1>Registro</h1>
+    @if (ViewBag.err) {
+        <span>Contraseña o nombre invalidos, por favor intente de nuevo</span>
+    }
     <label for="user">Usuario:</label>
     <input type="text" name="user" id="user" />
     <label for="pass">Contraseña</label>

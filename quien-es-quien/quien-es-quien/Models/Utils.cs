@@ -26,7 +26,7 @@ namespace quien_es_quien.Models {
 
         public static SqlConnection Connect() {
             // git stash push quien-es-quien\quien-es-quien\Models\Utils.cs
-            SqlConnection sql = new SqlConnection("Server=DESKTOP-MJ47DSB\\SQLEXPRESS;Database=QEQC01;Trusted_Connection=True;");
+            SqlConnection sql = new SqlConnection("Server=10.128.8.16;Database=QEQC01;Uid=QEQC01;Pwd=QEQC01");
             sql.Open();
             return sql;
         }
