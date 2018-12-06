@@ -1,48 +1,46 @@
-﻿@keyframes eskere {
-    0% {
-        transform: translate(0, 50em);
-    }
-
-    25% {
-        transform: translate(50%, 0);
-    }
-
-    50% {
-        transform: translate(0, -50%);
-    }
-
-    75% {
-        transform: translate(-50%, 0);
-    }
-
-    100% {
-        transform: translate(0, 50%);
-    }
-}
-
-body {
+﻿body {
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
-@keyframes test {
+@keyframes rip {
     from {
-        transform: rotate(0);
+        transform: scale(1);
     }
+
     to {
-        transform: rotate(1turn);
+        transform: scale(1.5);
     }
 }
 
 h1 {
-    color: red;
-    font-size: 6em;
-    /*-webkit-text-stroke: 4px yellow;
-    text-stroke: 4px yellow;*/
-    &::before, &::after {
+    font-size: 3em;
+    color: #F00;
+    animation: rip infinite 1s alternate ease-in-out;
+    animation-delay: 1.5s;
+
+    &::before {
+        z-index: -1;
+        position: absolute;
+        display: inline-block;
         content: "PERDISTE";
-        transform: rotate(15deg);
+        color: yellow;
+        opacity: 0.5;
+        animation: rip infinite 1s alternate ease-in-out;
     }
+}
+
+span {
+    margin: 0.5em;
+    padding: 1em;
+    background: rgba(purple, 0.5);
+    border: 4px dashed cyan;
+}
+
+a {
+    text-decoration: none;
+    color: yellow;
 }

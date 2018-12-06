@@ -1,13 +1,13 @@
-﻿@using quien_es_quien.Models;
-@{
-    ViewBag.Title = "Win";
+﻿<link href="~/Content/Game/Win.scss" rel="stylesheet" type="text/scss" />
 
-    var bitcoinsRemaining = (int)ViewBag.bitcoins;
-    var secretCharacter = (Character)ViewBag.secretCharacter;
+<h1>¡¡¡GANASTE!!!</h1>
+
+@if (ViewBag.current == null) {
+    <span>Si quieres guardar tus bitcoins, <a href="@Url.Action("Index", "Login")">Inicia Sesion</a></span>
 }
-
-<link href="~/Content/Game/Win.scss" rel="stylesheet" type="text/scss" />
-
-<h2>Win</h2>
-
-<p>Tu personaje era @secretCharacter.Name, y ganaste con @bitcoinsRemaining bitcoins restantes</p>
+else {
+    <span>Tenias @ViewBag.original bitcoins</span>
+    <span>Ahora tenes @ViewBag.current</span>
+    <span>Ganaste @(ViewBag.current - ViewBag.original) bitcoins!</span>
+}
+<span><a href="@Url.Action("Index", "Home")">Volver a la Home</a></span>

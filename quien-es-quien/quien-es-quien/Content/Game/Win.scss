@@ -1,1 +1,36 @@
-﻿
+﻿body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes bounce {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.5);
+    }
+}
+
+h1 {
+    font-size: 3em;
+    color: #0f0;
+    text-shadow: 0 0 10px yellow;
+    animation: bounce infinite 1s alternate ease-in-out;
+}
+
+span {
+    margin: 0.5em;
+    padding: 1em;
+    background: rgba(purple, 0.5);
+    border: 4px dashed cyan;
+}
+
+a {
+    text-decoration: none;
+    color: yellow;
+}
