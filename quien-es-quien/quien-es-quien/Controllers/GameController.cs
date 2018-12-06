@@ -86,6 +86,7 @@ namespace quien_es_quien.Controllers {
 
         public ActionResult Guess(int id)
         {
+            List<Character> RemainingCharacters = Session["RemainingCharacters"] as List<Character>;
             Character SecretCharacter = Session["SecretCharacter"] as Character;
 
             ((User)Session["User"]).UpdateBitcoins(-3000);
@@ -94,6 +95,16 @@ namespace quien_es_quien.Controllers {
             {
                 return RedirectToAction("Win",new { bonus=true });
             } else {
+                int i;
+                for (i=0;i<RemainingCharacters.Count;i++)
+                {
+                    if (RemainingCharacters[i].Id == id) break;
+                }
+                RemainingCharacters.RemoveAt(i);
+                if (RemainingCharacters.Count == 1)
+                    return RedirectToAction("Lose");
+                Session["RemainingCharacters"] = RemainingCharacters;
+
                 return RedirectToAction("Play");
             }
 
