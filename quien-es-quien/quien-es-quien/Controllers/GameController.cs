@@ -98,5 +98,7 @@ namespace quien_es_quien.Controllers {
             
             return View();
         }
+
+        public ActionResult Lose() => View();
     }
 }

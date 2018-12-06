@@ -1,0 +1,48 @@
+﻿@keyframes eskere {
+    0% {
+        transform: translate(0, 50em);
+    }
+
+    25% {
+        transform: translate(50%, 0);
+    }
+
+    50% {
+        transform: translate(0, -50%);
+    }
+
+    75% {
+        transform: translate(-50%, 0);
+    }
+
+    100% {
+        transform: translate(0, 50%);
+    }
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+@keyframes test {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+h1 {
+    color: red;
+    font-size: 6em;
+    /*-webkit-text-stroke: 4px yellow;
+    text-stroke: 4px yellow;*/
+    &::before, &::after {
+        content: "PERDISTE";
+        transform: rotate(15deg);
+    }
+}

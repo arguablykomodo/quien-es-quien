@@ -110,7 +110,9 @@
     </None>
     <Content Include="Content\Dogcheck.css" />
     <Content Include="Content\font.typeface.json" />
-    <None Include="Content\Game\Index.scss" />
+    <Content Include="Content\Game\Lose.scss" />
+    <Content Include="Content\Game\Win.scss" />
+    <None Include="Content\Game\Play.scss" />
     <Content Include="Content\GenericEdit.scss" />
     <None Include="Content\Admin\Index.scss" />
     <Content Include="Content\bg.jpg" />

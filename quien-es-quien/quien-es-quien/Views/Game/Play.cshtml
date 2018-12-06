@@ -14,7 +14,7 @@
     }
 </div>
 
-<link href="~/Content/Game/Index.scss" rel="stylesheet" type="text/scss" />
+<link href="~/Content/Game/Play.scss" rel="stylesheet" type="text/scss" />
 
 <main>
     <h1>Preguntar</h1>
@@ -31,7 +31,7 @@
             {
                 if (@questionsAsked.Contains(c.Id))
                 {
-                    <option data-type="@c.Type" value="@c.Id" style="background-color:red;">@c.Name</option>
+                    <option data-type="@c.Type" value="@c.Id" disabled>@c.Name</option>
                 }
                 else
                 {

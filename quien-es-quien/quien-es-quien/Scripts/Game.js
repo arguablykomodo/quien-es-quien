@@ -10,7 +10,7 @@ function filter() {
             e.style.display = "none";
         }
     });
-    char.selectedIndex = chars.findIndex(e => e.getAttribute("data-type") === type.selectedOptions[0].getAttribute("value"));
+    char.selectedIndex = chars.findIndex(e => e.getAttribute("data-type") === type.selectedOptions[0].getAttribute("value") && !e.disabled);
 }
 
 type.addEventListener("change", filter);
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
             height: 5,
             curveSegments: 1
         });
-        THREE.GeometryUtils.center(geometry);
+        geometry.center();
         const text = new THREE.Mesh(geometry, textmaterial);
         text.position.x = text.position.y = text.position.z = 100;
         text.position.z += 30;
